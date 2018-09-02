@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="80" height="50" tilewidth="15" tileheight="15" infinite="0" nextobjectid="45">
+ <tileset firstgid="1" source="control_room.tsx"/>
+ <layer name="Tiles" width="80" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzlmM1OKzEMhQuCCwIEC8r7vyqqxEgjK/b5cSaDLgtv2tRjfzk+yfTucrnchXj6ifj5b4tZdTJ5mOfEPNlvVrBl6125RxUPhn+WZ0WvT4NQc49yKHWN1ip5RvxQL9XeqX07bLL+3NmvtDNiUfEY1edos8MkPtvRpaInxeMqfmyNiu+6c6VqltFFt59Ko0wupv4upxnarnIpnlP1k83nivPv6FD8ueLD7FX1LLQH+zX3J4U6e5Vm2NliPJDdt+3zM/k5ft29O0TtKvobsdz6eVgQjwN+jv+O7h3K7yqNZ/eIrNYz+Tn9Zjpxc6FzhuX3sihYfkxfjOYyFm6uGFs/H4sC8UO9Zj7mao/ReeWBWz9fC2LPT9UN+hzd9Wbxi89X+H3+xAx+iCHDx9XW6MxQ5zb63wp+t7gO+CGPdjTm3E/YvXH5zYgRP7ZmZ+ZcbaF9jPxmx9Xkx85Nx/PVZ1WMj3zHGDHc81PvZJFf597cDfcugPJFfpFh1F/lQ+w56/Kb0a8yE2y+SoPXS61Z5t6v1plpxN0X9u6K8jgzjPgxtSt6Ys/z7Psj/e0W6H13xC+u+yfyY9iqd6FsX1CP3f8DzuDHzEnmT5lXZTz/J36sZipvU/V4q+mo/1Jeie9H/OK6t4JfdbYhfsw7CPKEW03vJ8eeX7aGeafL5hjNI/LMSvMr3806Ee8vig+ys/4X+CFubO8MP2bNb+a3fz9h7s9dfsyZEfM8HxjdvYnvd+idWOGB1rP7wZxP7rzsWc6aYdbzUK8VP6Z3V/cu6xl6rPixNaPzuDPzyrmmaHRb153v7P7HBsOP4cD6L8tQ0WrUpMJSmd+O/hwdOfPgsM9+x55JjMdHFqM5Y+YX3R9ZDXW/Z+pRubPnMNu7Ok8dfmj2kQe53BhO6tmp5M64sJ5R1aE+u6M99BzEA+WqfMHRvToTHV2w+8Wuydaq/s/OOcql1q/sSeX1DAv2rOjoid1jJo/ra5U/st7J+pbiPQo/xK0b3VlGOV3GUUNMnYz3zmCnzK37vIqVox9Gg8pMKBrJanFmw/GCymeUXLPmLmpUnYeKZZWn03u19x2GXX/p7AvDq3NGqeeEq0F3Fro5Z/bXOXtR/ll66WgL6Sbrd6QvxwMVft8/OUe/
+  </data>
+ </layer>
+ <objectgroup name="Ground">
+  <object id="42" x="450" y="525" width="150" height="45"/>
+ </objectgroup>
+ <objectgroup name="Boundaries">
+  <object id="1" x="300" y="465.014" width="374.957" height="44.9855"/>
+  <object id="5" x="300" y="420" width="29.5" height="45"/>
+  <object id="8" x="300" y="300" width="510.063" height="119.938"/>
+  <object id="10" x="675" y="480" width="30" height="30"/>
+  <object id="11" x="705" y="510" width="30" height="30"/>
+  <object id="12" x="735" y="510" width="60" height="30"/>
+  <object id="13" x="795" y="525" width="45" height="45"/>
+  <object id="14" x="840" y="540" width="135" height="15"/>
+  <object id="22" x="960" y="465" width="15" height="75"/>
+  <object id="23" x="945" y="420" width="30" height="45"/>
+  <object id="26" x="855" y="315" width="120" height="105"/>
+  <object id="27" x="855" y="240" width="45" height="75"/>
+  <object id="31" x="840" y="120" width="45" height="120"/>
+  <object id="32" x="435" y="120" width="405" height="90"/>
+  <object id="33" x="435" y="210" width="30" height="90"/>
+  <object id="34" x="465" y="270" width="315" height="30"/>
+  <object id="35" x="780" y="285" width="15" height="15"/>
+ </objectgroup>
+ <objectgroup name="Entities"/>
+ <objectgroup name="Special">
+  <object id="39" x="900" y="450" width="30" height="30">
+   <properties>
+    <property name="special_data" value="dark gray block"/>
+   </properties>
+  </object>
+  <object id="40" x="600" y="225" width="30" height="30">
+   <properties>
+    <property name="special_data" value="gray block"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

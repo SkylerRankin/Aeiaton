@@ -1,0 +1,47 @@
+
+sprites.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+robot_walk_down
+  rotate: false
+  xy: 1, 1
+  size: 80, 35
+  orig: 80, 35
+  offset: 0, 0
+  index: -1
+robot_walk_left
+  rotate: false
+  xy: 83, 1
+  size: 80, 35
+  orig: 80, 35
+  offset: 0, 0
+  index: -1
+robot_walk_up
+  rotate: false
+  xy: 165, 1
+  size: 80, 35
+  orig: 80, 35
+  offset: 0, 0
+  index: -1
+robot_idle_down
+  rotate: false
+  xy: 247, 1
+  size: 20, 35
+  orig: 20, 35
+  offset: 0, 0
+  index: -1
+robot_idle_left
+  rotate: false
+  xy: 269, 1
+  size: 20, 35
+  orig: 20, 35
+  offset: 0, 0
+  index: -1
+robot_idle_up
+  rotate: false
+  xy: 291, 1
+  size: 20, 35
+  orig: 20, 35
+  offset: 0, 0
+  index: -1
