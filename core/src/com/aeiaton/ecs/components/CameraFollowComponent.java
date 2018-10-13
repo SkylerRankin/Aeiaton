@@ -10,7 +10,7 @@ public class CameraFollowComponent implements Component {
     
     public CameraFollowComponent(CameraFollowComponent.FollowMode mode) {
         this.mode = mode;
-        LERP_CONSTANT = 0.5f;
+        LERP_CONSTANT = 0.04f;
     }
     
     public CameraFollowComponent(CameraFollowComponent.FollowMode mode, float c) {

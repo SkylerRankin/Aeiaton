@@ -24,8 +24,8 @@ public class InteractableItemSystem extends EntitySystem {
     @Override
     public void update(float d) {
         MovementComponent _mc = player.get(MovementComponent.class);
-        Vector2 dir = _mc.body.getLinearVelocity();
-        world.QueryAABB(AABBCallback, _mc.body.getPosition().x - 10, _mc.body.getPosition().y + 10, _mc.body.getPosition().x + 10, _mc.body.getPosition().y - 10);
+        //Vector2 dir = _mc.body.getLinearVelocity();
+        //world.QueryAABB(AABBCallback, _mc.body.getPosition().x - 10, _mc.body.getPosition().y + 10, _mc.body.getPosition().x + 10, _mc.body.getPosition().y - 10);
     }
     
     private QueryCallback AABBCallback = new QueryCallback() {
@@ -42,8 +42,11 @@ public class InteractableItemSystem extends EntitySystem {
 
     @Override
     public void notify(Event e) {
-        // TODO Auto-generated method stub
-        
+        switch (e.getName()) {
+        case "PunchEvent":
+            
+            break;
+        }
     }
 
     @Override

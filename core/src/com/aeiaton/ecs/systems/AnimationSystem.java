@@ -15,14 +15,14 @@ import com.badlogic.gdx.utils.Array;
 public class AnimationSystem extends EntitySystem {
 
     public AnimationSystem() {
-        super(9, AnimationComponent.class, PlayerInputComponent.class, RenderComponent.class);
+        super(9, AnimationComponent.class, RenderComponent.class);
     }
 
     @Override
     public void update(float d) {
         for (Entity e : entities) {
             AnimationComponent ac = e.get(AnimationComponent.class);
-            PlayerInputComponent pic = e.get(PlayerInputComponent.class);
+            //PlayerInputComponent pic = e.get(PlayerInputComponent.class);
             RenderComponent rc = e.get(RenderComponent.class);
             rc.texture_region = ac.getAnimationFrame(d);
         }

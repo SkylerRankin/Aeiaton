@@ -19,6 +19,9 @@ public class InputSystem extends com.aeiaton.ecs.EntitySystem {
             e.get(PlayerInputComponent.class).down = Gdx.input.isKeyPressed(Input.Keys.S);
             e.get(PlayerInputComponent.class).left = Gdx.input.isKeyPressed(Input.Keys.A);
             e.get(PlayerInputComponent.class).right = Gdx.input.isKeyPressed(Input.Keys.D);
+            e.get(PlayerInputComponent.class).i = Gdx.input.isKeyJustPressed(Input.Keys.I);
+            e.get(PlayerInputComponent.class).o = Gdx.input.isKeyJustPressed(Input.Keys.O);
+            e.get(PlayerInputComponent.class).p = Gdx.input.isKeyJustPressed(Input.Keys.P);
         }
     }
 

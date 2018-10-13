@@ -55,8 +55,13 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.direction = PlayerDirection.Right;
                 ac.current_animation = 7;
             }
+            if (pic.o && psc.state != PlayerStateComponent.PlayerState.Punch) {
+                System.out.println("punch");
+                psc.state = PlayerState.Punch;
+                ac.current_animation = 8;
+            }
         }
-    }
+    } //28 40
 
     @Override
     public void notify(Event e) {

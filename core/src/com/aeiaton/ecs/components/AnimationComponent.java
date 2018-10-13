@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 public class AnimationComponent implements Component {
     
     public List<Animation<TextureRegion>> animations = new ArrayList<>();
-    public int current_animation;
+    public int current_animation = 0;
     public float delay;
     public int width;
     public int height;
@@ -27,7 +27,7 @@ public class AnimationComponent implements Component {
     
     public AnimationComponent(float delay, int width, int height, String[] files, int[] lengths, boolean[] flips) {
         this.delay = delay;
-        current_animation = 2;
+        current_animation = 0;
         this.width = width;
         this.height = height;
         this.lengths = lengths;
@@ -50,6 +50,10 @@ public class AnimationComponent implements Component {
     public TextureRegion getAnimationFrame(float d) {
         time += d;
         return animations.get(current_animation).getKeyFrame(time, true);
+    }
+    
+    public boolean isCurrentAnimationFinished(float d) {
+        return animations.get(current_animation).isAnimationFinished(d);
     }
 
 }

@@ -12,7 +12,7 @@ public class CameraSystem extends EntitySystem {
     private Camera camera;
     
     public CameraSystem(Camera c) {
-        super(10, CameraFollowComponent.class, MovementComponent.class);
+        super(0, CameraFollowComponent.class, MovementComponent.class);
         camera = c;
     }
 

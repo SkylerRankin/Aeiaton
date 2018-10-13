@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="15" tileheight="15" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" source="Base Tile.tsx"/>
+ <tileset firstgid="50" source="Furniture (VDiaz).tsx"/>
+ <layer name="Tile Layer 1" width="64" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztlksKwzAMRLXPLrseLgfTCXyTnqsIIpgM43ZRSpGjB4OdT6FjjRWbrcUGuhsbjXfjrnUPVq79cWrGNtEqHDQmyi/PV+CgeQi9qZqvtAboP33iOiiP6N9PVSX9qz2OWXB4T/2+Klhn9oZZcHru8AzXYAdVgLOuel56Nbv6HqAgPD9AFeCcq3XIPY5ZCAaMod3q1Z97nsqC2zUT6H+c1zmvWH/+tnHfw97ndB/zn2MlZt9w9M3+8zr3e4xDqALKv9NzJyWZ8dzr2AOq5R/zrnqfmT7npFfVA6vAXlWtZ+e8vI91r9T/kHdnWe57LPb9/N3f/BuzTFSs9Td88r1i7ZumaZqmaZqmaZpmxgsi2UKv
+  </data>
+ </layer>
+</map>

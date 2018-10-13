@@ -3,45 +3,59 @@ sprites.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+ui
+  rotate: false
+  xy: 1, 82
+  size: 540, 30
+  orig: 540, 30
+  offset: 0, 0
+  index: -1
+purple_guard
+  rotate: false
+  xy: 1, 40
+  size: 336, 40
+  orig: 336, 40
+  offset: 0, 0
+  index: -1
 robot_walk_down
   rotate: false
   xy: 1, 1
-  size: 80, 35
-  orig: 80, 35
+  size: 210, 37
+  orig: 210, 37
   offset: 0, 0
   index: -1
-robot_walk_left
+robot_walk_right
   rotate: false
-  xy: 83, 1
-  size: 80, 35
-  orig: 80, 35
+  xy: 339, 43
+  size: 195, 37
+  orig: 195, 37
   offset: 0, 0
   index: -1
 robot_walk_up
   rotate: false
-  xy: 165, 1
-  size: 80, 35
-  orig: 80, 35
+  xy: 543, 75
+  size: 180, 37
+  orig: 180, 37
   offset: 0, 0
   index: -1
-robot_idle_down
+punch
   rotate: false
-  xy: 247, 1
-  size: 20, 35
-  orig: 20, 35
+  xy: 213, 1
+  size: 15, 37
+  orig: 15, 37
   offset: 0, 0
   index: -1
-robot_idle_left
+computer
   rotate: false
-  xy: 269, 1
-  size: 20, 35
-  orig: 20, 35
+  xy: 725, 94
+  size: 22, 18
+  orig: 22, 18
   offset: 0, 0
   index: -1
-robot_idle_up
+computer_yellow
   rotate: false
-  xy: 291, 1
-  size: 20, 35
-  orig: 20, 35
+  xy: 230, 20
+  size: 22, 18
+  orig: 22, 18
   offset: 0, 0
   index: -1

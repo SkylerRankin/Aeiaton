@@ -15,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class WorldBuilder {
     
     public static TiledMap loadMap(Level level, String path) {
-        
         TiledMap map = new TmxMapLoader().load(path);
         level.setMap(map);
         BodyDef bdef = new BodyDef();
@@ -24,7 +23,7 @@ public class WorldBuilder {
         PolygonShape shape = new PolygonShape();
         
         // Add ground to box2d world
-        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / Aeiaton.PPM, (rect.getY() + rect.getHeight() / 2) / Aeiaton.PPM);
@@ -39,7 +38,7 @@ public class WorldBuilder {
         }
         
      // Add world edges to box2d world
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / Aeiaton.PPM, (rect.getY() + rect.getHeight() / 2) / Aeiaton.PPM);
@@ -53,7 +52,7 @@ public class WorldBuilder {
         }
         
         // Add objects to ECS and box2d world
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / Aeiaton.PPM, (rect.getY() + rect.getHeight() / 2) / Aeiaton.PPM);
@@ -70,7 +69,7 @@ public class WorldBuilder {
             }
             body.createFixture(fdef).setUserData(data);
         }
-        
+        /*
         // Add special spots to box2d world
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -87,7 +86,7 @@ public class WorldBuilder {
                 System.out.println("WorldBuilder: failed to load special_data from map object");
             }
             body.createFixture(fdef).setUserData(data);
-        }
+        }*/
         
         return map;
     }

@@ -1,6 +1,8 @@
 package com.aeiaton.screens;
 
 import com.aeiaton.Aeiaton;
+import com.aeiaton.observer.Observer;
+import com.aeiaton.ui.UIManager;
 import com.aeiaton.util.WorldBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,6 +25,7 @@ public class Level implements Screen {
     
     /** Camera **/
     protected OrthographicCamera camera;
+    protected OrthographicCamera ui_camera;
     protected Viewport viewport;
     
     /** Box2D **/
@@ -34,18 +37,25 @@ public class Level implements Screen {
     protected OrthogonalTiledMapRenderer map_renderer;
     
     /** UI **/
+    protected UIManager ui;
     protected Stage stage;
     
     /** File paths **/
     protected String map_path;
     
+    /** Observer **/
+    protected Observer observer;
+    
     public Level(Aeiaton game, String m) {
         this.game = game;
         map_path = m;
         world = new World(new Vector2(0, 0), false);
+        ui = new UIManager();
         debug_renderer = new Box2DDebugRenderer();
         camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
+        ui_camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
+        ui_camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);        
         viewport = new FitViewport(Aeiaton.DEFAULT_WIDTH / Aeiaton.PPM, Aeiaton.DEFAULT_HEIGHT / Aeiaton.PPM, camera);
         map = WorldBuilder.loadMap(this, map_path);
         map_renderer = new OrthogonalTiledMapRenderer(map, 1 / Aeiaton.PPM);

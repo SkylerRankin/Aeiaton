@@ -8,6 +8,8 @@ import com.aeiaton.observer.Observer;
 
 public abstract class EntitySystem {
     
+    public final static short UISystem = 0;
+    
     public final int priority;
     protected Observer observer;
     

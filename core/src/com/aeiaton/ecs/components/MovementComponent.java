@@ -18,11 +18,12 @@ public class MovementComponent implements Component {
     public FixtureDef fdef;
     public PolygonShape shape;
     
-    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, String data) {
+    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data) {
         position = p;
         velocity = v;
         size = s;
         walk_force = w;
+        dash_force = d;
         
         bdef = new BodyDef();
         fdef = new FixtureDef();
@@ -52,6 +53,7 @@ public class MovementComponent implements Component {
         }
     }
     
+    public float dash_force;
     public float walk_force;
     public Vector2 position = new Vector2();
     public Vector2 velocity = new Vector2();

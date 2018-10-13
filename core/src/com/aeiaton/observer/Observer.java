@@ -1,10 +1,7 @@
 package com.aeiaton.observer;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Queue;
-
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.SystemHandler;
 

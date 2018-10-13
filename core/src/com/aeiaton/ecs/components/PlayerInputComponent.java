@@ -8,5 +8,9 @@ public class PlayerInputComponent implements Component {
     public boolean down;
     public boolean left;
     public boolean right;
+    
+    public boolean i;
+    public boolean o;
+    public boolean p;
 
 }
