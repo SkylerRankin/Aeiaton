@@ -47,8 +47,16 @@ public class WorldBuilder {
             fdef.shape = shape;
             fdef.filter.categoryBits = Aeiaton.BOUNDARY_BIT;
             fdef.filter.maskBits = Aeiaton.PLAYER_BIT | Aeiaton.OBJECT_BIT;
+            Object data;
+            if (object.getProperties().containsKey("data")) {
+                body.setUserData(object.getProperties().get("data"));
+                data = object.getProperties().get("data");
+            } else {
+                body.setUserData("boundary");
+                data = "boundary";
+            }
             body.createFixture(fdef).setUserData("boundary");
-            body.setUserData("boundary");
+            
         }
         
         // Add objects to ECS and box2d world

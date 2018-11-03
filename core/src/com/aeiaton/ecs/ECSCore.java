@@ -15,6 +15,8 @@ public class ECSCore {
     
     public Map<Short, Component> component_map;
     
+    private int entity_count = 0;
+    
     public ECSCore() {
         system_handler = new SystemHandler();
         entity_handler = new EntityHandler();
@@ -37,7 +39,13 @@ public class ECSCore {
         }
     }
     
+    public Entity getEntity(int id) {
+        return entity_handler.getEntity(id);
+    }
+    
     public void addEntity(Entity e) {
+        e.id = entity_count;
+        entity_count++;
         entity_handler.addEntity(e);
         system_handler.addEntity(e);
     }
@@ -53,6 +61,14 @@ public class ECSCore {
     
     public void removeSystem(EntitySystem s) {
         system_handler.removeSystem(s);
+    }
+    
+    public EntitySystem getSystem(Class<?> c) {
+        return system_handler.getSystem(c);
+    }
+    
+    public SystemHandler getSystemHandler() {
+        return this.system_handler;
     }
 
 }

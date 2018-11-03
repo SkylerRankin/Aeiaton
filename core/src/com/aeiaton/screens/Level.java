@@ -1,8 +1,10 @@
 package com.aeiaton.screens;
 
 import com.aeiaton.Aeiaton;
+import com.aeiaton.ecs.ECSCore;
 import com.aeiaton.observer.Observer;
 import com.aeiaton.ui.UIManager;
+import com.aeiaton.util.BodyContactListener;
 import com.aeiaton.util.WorldBuilder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,6 +25,8 @@ public class Level implements Screen {
     /** Global access to game **/
     public Aeiaton game;
     
+    protected ECSCore core;
+    
     /** Camera **/
     protected OrthographicCamera camera;
     protected OrthographicCamera ui_camera;
@@ -31,6 +35,7 @@ public class Level implements Screen {
     /** Box2D **/
     protected World world;
     protected Box2DDebugRenderer debug_renderer;
+    protected BodyContactListener contact_listener;
     
     /** Tiled **/
     protected TiledMap map;
@@ -49,17 +54,24 @@ public class Level implements Screen {
     public Level(Aeiaton game, String m) {
         this.game = game;
         map_path = m;
+        core = new ECSCore();
         world = new World(new Vector2(0, 0), false);
         ui = new UIManager();
+        stage = new Stage();
         debug_renderer = new Box2DDebugRenderer();
         camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         ui_camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         ui_camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);        
         viewport = new FitViewport(Aeiaton.DEFAULT_WIDTH / Aeiaton.PPM, Aeiaton.DEFAULT_HEIGHT / Aeiaton.PPM, camera);
+        //stage.setViewport(viewport);
         map = WorldBuilder.loadMap(this, map_path);
         map_renderer = new OrthogonalTiledMapRenderer(map, 1 / Aeiaton.PPM);
         map_renderer.setView(camera);
+        observer = new Observer(core.getSystemHandler());
+        contact_listener = new BodyContactListener(observer);
+        world.setContactListener(contact_listener);
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -71,7 +83,10 @@ public class Level implements Screen {
     public void update(float d) {}
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+        //stage.setViewport(viewport);
+    }
 
     @Override
     public void pause() {}

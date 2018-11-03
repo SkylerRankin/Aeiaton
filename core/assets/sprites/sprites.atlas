@@ -17,44 +17,72 @@ purple_guard
   orig: 336, 40
   offset: 0, 0
   index: -1
-robot_walk_down
+robot_back_walk
   rotate: false
   xy: 1, 1
-  size: 210, 37
-  orig: 210, 37
+  size: 180, 37
+  orig: 180, 37
   offset: 0, 0
   index: -1
-robot_walk_right
+robot_front_dash
   rotate: false
   xy: 339, 43
-  size: 195, 37
-  orig: 195, 37
+  size: 180, 37
+  orig: 180, 37
   offset: 0, 0
   index: -1
-robot_walk_up
+robot_front_punch
   rotate: false
   xy: 543, 75
   size: 180, 37
   orig: 180, 37
   offset: 0, 0
   index: -1
+robot_front_walk
+  rotate: false
+  xy: 725, 75
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_energy_blast
+  rotate: false
+  xy: 183, 1
+  size: 165, 37
+  orig: 165, 37
+  offset: 0, 0
+  index: -1
+robot_side_walk
+  rotate: false
+  xy: 350, 4
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_flash_drive
+  rotate: false
+  xy: 907, 75
+  size: 90, 37
+  orig: 90, 37
+  offset: 0, 0
+  index: -1
 punch
   rotate: false
-  xy: 213, 1
+  xy: 521, 43
   size: 15, 37
   orig: 15, 37
   offset: 0, 0
   index: -1
 computer
   rotate: false
-  xy: 725, 94
+  xy: 999, 94
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 computer_yellow
   rotate: false
-  xy: 230, 20
+  xy: 999, 74
   size: 22, 18
   orig: 22, 18
   offset: 0, 0

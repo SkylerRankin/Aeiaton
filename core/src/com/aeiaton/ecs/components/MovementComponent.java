@@ -18,7 +18,7 @@ public class MovementComponent implements Component {
     public FixtureDef fdef;
     public PolygonShape shape;
     
-    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data) {
+    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data, boolean isBoundary, boolean hitsDirectional) {
         position = p;
         velocity = v;
         size = s;
@@ -29,15 +29,21 @@ public class MovementComponent implements Component {
         fdef = new FixtureDef();
         shape = new PolygonShape();
         
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = isBoundary ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
         bdef.position.set(position.x + (s.x / 2), position.y + (s.y / 2));
         body = world.createBody(bdef);
         shape.setAsBox(s.x / 2, s.y / 2);
-        fdef.filter.categoryBits = Aeiaton.PLAYER_BIT;
-        fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;
+        if (isBoundary) {
+            fdef.filter.categoryBits = hitsDirectional ? Aeiaton.BOUNDARY_BIT | Aeiaton.INTERACTABLE_BIT : Aeiaton.BOUNDARY_BIT;
+            fdef.filter.maskBits = hitsDirectional ? Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT : Aeiaton.BOUNDARY_BIT;
+        } else {
+            fdef.filter.categoryBits = Aeiaton.PLAYER_BIT;
+            fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;
+        }
+        
         fdef.shape = shape;
         body.setUserData(data);
-        body.createFixture(fdef);
+        body.createFixture(fdef).setUserData(data);;
         
         Array<Body> bodies = new Array<>();
         world.getBodies(bodies);

@@ -1,6 +1,8 @@
 package com.aeiaton.ecs;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.aeiaton.observer.Event;
@@ -8,10 +10,16 @@ import com.aeiaton.observer.Observer;
 
 public abstract class EntitySystem {
     
-    public final static short UISystem = 0;
+    public final static short UISystem = 1;
+    public final static short MovementSystem = 2;
+    public final static short InteractableItemSystem = 3;
     
     public final int priority;
     protected Observer observer;
+    
+    //private int count;
+    
+    protected Map<Integer, Entity> _entities = new HashMap<>();
     
     protected Set<Entity> entities = new HashSet<Entity>();
     protected Set<Class<?>> dependencies = new HashSet<>();
@@ -33,6 +41,8 @@ public abstract class EntitySystem {
     
     public void addEntity(Entity e) {
         entities.add(e);
+        _entities.put(e.id,  e);
+        //count++;
     }
     
     public void setObserver(Observer o) {

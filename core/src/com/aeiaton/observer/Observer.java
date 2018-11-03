@@ -11,7 +11,7 @@ public class Observer {
     private static final int max_messages = 10;
     private SystemHandler system_handler;
     private Queue<Event> queue;
-    private boolean debug = false;
+    private boolean debug = true;
     
     public Observer(SystemHandler sh) {
         system_handler = sh;

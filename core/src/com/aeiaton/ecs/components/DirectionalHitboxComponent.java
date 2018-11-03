@@ -25,16 +25,14 @@ public class DirectionalHitboxComponent implements Component {
         direction = new Vector2(1, 1);
         offset = o;
         
-        bdef.type = BodyDef.BodyType.StaticBody;
+        bdef.type = BodyDef.BodyType.DynamicBody;
         bdef.position.set(p.x, p.y);
         body = world.createBody(bdef);
         shape.setAsBox(s.x / 2, s.y / 2);
-        fdef.filter.categoryBits = Aeiaton.PLAYER_BIT;
-        fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;
+        fdef.filter.categoryBits = Aeiaton.DIRECTIONAL_HITBOX_BIT;
+        fdef.filter.maskBits = Aeiaton.INTERACTABLE_BIT;
         fdef.shape = shape;
-        fdef.isSensor = true;
         body.setUserData("directional_hitbox");
-        body.createFixture(fdef);
+        body.createFixture(fdef).setUserData("directional_hitbox");
     }
-
 }

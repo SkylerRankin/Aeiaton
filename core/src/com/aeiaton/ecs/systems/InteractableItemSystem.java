@@ -4,7 +4,10 @@ import com.aeiaton.ecs.Entity;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.components.InteractableComponent;
 import com.aeiaton.ecs.components.MovementComponent;
+import com.aeiaton.ecs.components.RenderComponent;
 import com.aeiaton.observer.Event;
+import com.aeiaton.observer.ObjectActivationEvent;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.QueryCallback;
@@ -12,47 +15,59 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class InteractableItemSystem extends EntitySystem {
 
+    private TextureAtlas atlas;
     private World world;
-    private Entity player;
+    private Integer next_activation = null;
+    private boolean init = false;
+    private boolean event = false; 
     
-    public InteractableItemSystem(World world, Entity player) {
+    public InteractableItemSystem(World world) {
         super(3, InteractableComponent.class);
         this.world = world;
-        this.player = player;
+        atlas = new TextureAtlas("sprites//sprites.atlas");
     }
 
     @Override
     public void update(float d) {
-        MovementComponent _mc = player.get(MovementComponent.class);
-        //Vector2 dir = _mc.body.getLinearVelocity();
-        //world.QueryAABB(AABBCallback, _mc.body.getPosition().x - 10, _mc.body.getPosition().y + 10, _mc.body.getPosition().x + 10, _mc.body.getPosition().y - 10);
-    }
-    
-    private QueryCallback AABBCallback = new QueryCallback() {
-
-        @Override
-        public boolean reportFixture(Fixture fixture) {
-            if (fixture.getBody().getUserData() == null || !fixture.getBody().getUserData().equals("player")) {
-                System.out.println("InteractableItemSystem: fixture found, data="+fixture.getBody().getUserData());
-                return true;
+        if (!init) init();
+        if (next_activation == null) return;
+        for (Entity e : entities) {
+            if (next_activation == e.id) {
+                RenderComponent rc = e.get(RenderComponent.class);
+                InteractableComponent ic = e.get(InteractableComponent.class);
+                if (event) {
+                    ic.active = !ic.active;
+                    event = false;
+                }
+                rc.texture_region = atlas.findRegion(ic.active ? ic.active_texture : ic.inactive_texture);
+                if (!ic.active) next_activation = null;
+                return;
             }
-            return false;
         }
-    };
+    }
 
     @Override
     public void notify(Event e) {
         switch (e.getName()) {
-        case "PunchEvent":
-            
+        case "ObjectActivationEvent":
+            next_activation = ((ObjectActivationEvent) e).id;
+            event = true;
             break;
         }
     }
 
     @Override
     public short getID() {
-        // TODO Auto-generated method stub
-        return 0;
+        return EntitySystem.InteractableItemSystem;
+    }
+    
+    private void init() {
+        init = true;
+        for (Entity e : entities) {
+            RenderComponent rc = e.get(RenderComponent.class);
+            InteractableComponent ic = e.get(InteractableComponent.class);
+            rc.texture_region = atlas.findRegion(ic.inactive_texture);
+        }
     }
 
 }

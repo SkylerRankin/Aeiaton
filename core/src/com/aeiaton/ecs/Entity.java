@@ -7,6 +7,7 @@ public class Entity {
     
     protected Set<Component> components;
     public int priority;
+    public int id;
     
     public Entity() {
         components = new HashSet<>();

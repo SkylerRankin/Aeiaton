@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+import com.aeiaton.ecs.systems.RenderSystem;
+
 public class SystemHandler {
     
     public PriorityQueue<EntitySystem> system_queue;
@@ -28,6 +30,15 @@ public class SystemHandler {
     
     public <T extends Component> EntitySystem[] get(Class<T>...components) {
         ArrayList<EntitySystem> systems = new ArrayList<>();
+        return null;
+    }
+    
+    public EntitySystem getSystem(Class<?> c) {
+        for (EntitySystem e : system_queue) {
+            if (e.getClass() == c) {
+                return e;
+            }
+        }
         return null;
     }
     

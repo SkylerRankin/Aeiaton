@@ -1,10 +1,13 @@
 package com.aeiaton.ecs.systems;
 
 import com.aeiaton.ecs.Entity;
+import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.components.DirectionalHitboxComponent;
 import com.aeiaton.ecs.components.MovementComponent;
 import com.aeiaton.ecs.components.PlayerInputComponent;
 import com.aeiaton.observer.Event;
+import com.aeiaton.observer.FreezeEvent;
+import com.aeiaton.observer.PunchEvent;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
 
     private World world;
+    private boolean frozen;
     
     public MovementSystem(World world) {
         super(2, MovementComponent.class);
@@ -28,7 +32,7 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
     @Override
     public void update(float d) {
         for (Entity e : entities) {
-            if (e.hasComponent(PlayerInputComponent.class)) {
+            if (!frozen && e.hasComponent(PlayerInputComponent.class)) {
                 PlayerInputComponent pic = e.get(PlayerInputComponent.class);
                 MovementComponent mc = e.get(MovementComponent.class);
                 if (pic.up) { mc.body.applyLinearImpulse(new Vector2(0, mc.walk_force), mc.body.getWorldCenter(), true); }
@@ -61,13 +65,27 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
 
     @Override
     public void notify(Event e) {
-        // TODO Auto-generated method stub
-        
+        switch (e.getName()) {
+        case "Punch Event":
+            PunchEvent pe = (PunchEvent) e;
+            applyForce(pe.id, pe.force);
+            break;
+        case "FreezeEvent":
+            FreezeEvent fe = (FreezeEvent) e;
+            frozen = fe.frozen;
+        }
+    }
+    
+    private void applyForce(int id, Vector2 force) {
+        if (_entities.get(id) != null) {
+            MovementComponent mc = _entities.get(id).get(MovementComponent.class);
+            mc.body.applyForceToCenter(force, true);
+        }
     }
 
     @Override
     public short getID() {
-        return 1;
+        return EntitySystem.MovementSystem;
     }
 
 }

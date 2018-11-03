@@ -54,12 +54,17 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Walk;
                 psc.direction = PlayerDirection.Right;
                 ac.current_animation = 7;
+            } else if (pic.o) {
+                psc.state = PlayerState.Beam;
+                ac.current_animation = 8;
             }
+            /*
             if (pic.o && psc.state != PlayerStateComponent.PlayerState.Punch) {
                 System.out.println("punch");
                 psc.state = PlayerState.Punch;
                 ac.current_animation = 8;
-            }
+                observer.recieve(new PunchEvent());
+            }*/
         }
     } //28 40
 
