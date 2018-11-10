@@ -22,10 +22,11 @@ public class AnimationComponent implements Component {
     public boolean[] flips;
     public TextureAtlas atlas;
     public float time = 0;
+    private boolean looping;
     
     public Animation<TextureRegion> animation;
     
-    public AnimationComponent(float delay, int width, int height, String[] files, int[] lengths, boolean[] flips) {
+    public AnimationComponent(float delay, int width, int height, String[] files, int[] lengths, boolean[] flips, boolean loop) {
         this.delay = delay;
         current_animation = 0;
         this.width = width;
@@ -33,6 +34,7 @@ public class AnimationComponent implements Component {
         this.lengths = lengths;
         this.files = files;
         this.flips = flips;
+        looping = loop;
         atlas = new TextureAtlas("sprites//sprites.atlas");
         
         Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -49,11 +51,11 @@ public class AnimationComponent implements Component {
     
     public TextureRegion getAnimationFrame(float d) {
         time += d;
-        return animations.get(current_animation).getKeyFrame(time, true);
+        return animations.get(current_animation).getKeyFrame(time, looping);
     }
     
     public boolean isCurrentAnimationFinished(float d) {
-        return animations.get(current_animation).isAnimationFinished(d);
+        return animations.get(current_animation).isAnimationFinished(time);
     }
 
 }

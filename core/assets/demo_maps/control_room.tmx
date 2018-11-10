@@ -52,7 +52,6 @@
   <object id="48" x="1274.86" y="1094.91" width="240.122" height="15.2679"/>
   <object id="49" x="899.79" y="1094.91" width="255.236" height="15.2679"/>
   <object id="50" x="899.862" y="1110.97" width="15.3904" height="119.613"/>
-  <object id="51" x="1200.4" y="1065.56" width="29.2844" height="44.345"/>
   <object id="70" x="1254.35" y="1756.93" width="16.7367" height="12.2736"/>
   <object id="71" x="1247.66" y="1771.07" width="16.7367" height="12.2736"/>
   <object id="72" x="1309.03" y="1771.81" width="15.9929" height="10.7859"/>
@@ -155,8 +154,6 @@
   <object id="69" x="1020.97" y="1249.52" width="87.2987" height="46.5116"/>
  </objectgroup>
  <objectgroup name="Interactives">
-  <object id="52" x="1155.42" y="1065.76" width="43.5083" height="44.5541"/>
-  <object id="53" x="1230.31" y="1065.14" width="44.7633" height="44.7633"/>
   <object id="54" x="1314.99" y="1097.69" width="10.0621" height="9.49859">
    <ellipse/>
   </object>
