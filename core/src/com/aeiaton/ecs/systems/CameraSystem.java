@@ -23,12 +23,12 @@ public class CameraSystem extends EntitySystem {
             MovementComponent mc = e.get(MovementComponent.class);
             switch (cfc.mode) {
             case EXACT:
-                camera.position.x = mc.body.getPosition().x;
-                camera.position.y = mc.body.getPosition().y;
+                camera.position.x = mc.body.getPosition().x + cfc.offset.x;
+                camera.position.y = mc.body.getPosition().y + cfc.offset.y;
                 break;
             case LERP:
-                camera.position.x = camera.position.x + (mc.body.getPosition().x - camera.position.x) * cfc.LERP_CONSTANT;
-                camera.position.y = camera.position.y + (mc.body.getPosition().y - camera.position.y) * cfc.LERP_CONSTANT;
+                camera.position.x = camera.position.x + (mc.body.getPosition().x - camera.position.x) * cfc.LERP_CONSTANT  + cfc.offset.x;
+                camera.position.y = camera.position.y + (mc.body.getPosition().y - camera.position.y) * cfc.LERP_CONSTANT  + cfc.offset.y;
                 break;
             }
             camera.update();
