@@ -3,87 +3,115 @@ sprites.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+door
+  rotate: false
+  xy: 1, 33
+  size: 1440, 165
+  orig: 1440, 165
+  offset: 0, 0
+  index: -1
 ui
   rotate: false
-  xy: 1, 82
+  xy: 1, 1
   size: 540, 30
   orig: 540, 30
   offset: 0, 0
   index: -1
-purple_guard
-  rotate: false
-  xy: 1, 40
-  size: 336, 40
-  orig: 336, 40
-  offset: 0, 0
-  index: -1
-robot_back_walk
-  rotate: false
-  xy: 1, 1
-  size: 180, 37
-  orig: 180, 37
-  offset: 0, 0
-  index: -1
-robot_front_dash
-  rotate: false
-  xy: 339, 43
-  size: 180, 37
-  orig: 180, 37
-  offset: 0, 0
-  index: -1
-robot_front_punch
-  rotate: false
-  xy: 543, 75
-  size: 180, 37
-  orig: 180, 37
-  offset: 0, 0
-  index: -1
-robot_front_walk
-  rotate: false
-  xy: 725, 75
-  size: 180, 37
-  orig: 180, 37
-  offset: 0, 0
-  index: -1
-robot_energy_blast
-  rotate: false
-  xy: 183, 1
-  size: 165, 37
-  orig: 165, 37
-  offset: 0, 0
-  index: -1
-robot_side_walk
-  rotate: false
-  xy: 350, 4
-  size: 180, 37
-  orig: 180, 37
-  offset: 0, 0
-  index: -1
-robot_flash_drive
-  rotate: false
-  xy: 907, 75
-  size: 90, 37
-  orig: 90, 37
-  offset: 0, 0
-  index: -1
-punch
-  rotate: false
-  xy: 521, 43
-  size: 15, 37
-  orig: 15, 37
-  offset: 0, 0
-  index: -1
 computer
   rotate: false
-  xy: 999, 94
+  xy: 543, 13
   size: 22, 18
   orig: 22, 18
   offset: 0, 0
   index: -1
 computer_yellow
   rotate: false
-  xy: 999, 74
+  xy: 567, 13
   size: 22, 18
   orig: 22, 18
+  offset: 0, 0
+  index: -1
+door_empty
+  rotate: false
+  xy: 1443, 33
+  size: 120, 165
+  orig: 120, 165
+  offset: 0, 0
+  index: -1
+purple_guard
+  rotate: false
+  xy: 1565, 158
+  size: 336, 40
+  orig: 336, 40
+  offset: 0, 0
+  index: -1
+punch
+  rotate: false
+  xy: 1903, 161
+  size: 15, 37
+  orig: 15, 37
+  offset: 0, 0
+  index: -1
+robot_back_walk
+  rotate: false
+  xy: 1565, 119
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_front_dash
+  rotate: false
+  xy: 1747, 119
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_front_punch
+  rotate: false
+  xy: 1565, 80
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_front_walk
+  rotate: false
+  xy: 1747, 80
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_side_walk
+  rotate: false
+  xy: 1565, 41
+  size: 180, 37
+  orig: 180, 37
+  offset: 0, 0
+  index: -1
+robot_energy_blast
+  rotate: false
+  xy: 1565, 2
+  size: 165, 37
+  orig: 165, 37
+  offset: 0, 0
+  index: -1
+robot_front_energy_shot
+  rotate: false
+  xy: 1732, 2
+  size: 150, 37
+  orig: 150, 37
+  offset: 0, 0
+  index: -1
+robot_side_energy_shot
+  rotate: false
+  xy: 1747, 41
+  size: 150, 37
+  orig: 150, 37
+  offset: 0, 0
+  index: -1
+robot_flash_drive
+  rotate: false
+  xy: 1884, 2
+  size: 90, 37
+  orig: 90, 37
   offset: 0, 0
   index: -1

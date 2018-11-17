@@ -13,6 +13,8 @@ public abstract class EntitySystem {
     public final static short UISystem = 1;
     public final static short MovementSystem = 2;
     public final static short InteractableItemSystem = 3;
+    public final static short GameStateSystem = 4;
+    public final static short DoorSystem = 5;
     
     public final int priority;
     protected Observer observer;

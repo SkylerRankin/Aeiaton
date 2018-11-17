@@ -7,6 +7,7 @@ import com.aeiaton.ecs.components.PlayerInputComponent;
 import com.aeiaton.ecs.components.PlayerStateComponent;
 import com.aeiaton.ecs.components.PlayerStateComponent.PlayerDirection;
 import com.aeiaton.ecs.components.PlayerStateComponent.PlayerState;
+import com.aeiaton.observer.BeamEvent;
 import com.aeiaton.observer.Event;
 
 public class PlayerStateSystem extends EntitySystem {
@@ -21,6 +22,9 @@ public class PlayerStateSystem extends EntitySystem {
             PlayerInputComponent pic = e.get(PlayerInputComponent.class);
             PlayerStateComponent psc = e.get(PlayerStateComponent.class);
             AnimationComponent ac = e.get(AnimationComponent.class);
+            if (psc.state.equals(PlayerState.Beam) && !ac.isCurrentAnimationFinished(d)) {
+                continue;
+            }
             
             if (!pic.up && !pic.down && !pic.left && !pic.right) {
                 psc.state = PlayerState.Idle;
@@ -58,13 +62,25 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Beam;
                 ac.current_animation = 8;
             }
-            /*
-            if (pic.o && psc.state != PlayerStateComponent.PlayerState.Punch) {
-                System.out.println("punch");
-                psc.state = PlayerState.Punch;
-                ac.current_animation = 8;
-                observer.recieve(new PunchEvent());
-            }*/
+            if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
+                observer.recieve(new BeamEvent());
+                psc.state = PlayerState.Beam;
+                ac.time = 0;
+                switch (psc.direction) {
+                case Up:
+                    break;
+                case Down:
+                    ac.current_animation = 9;
+                    System.out.println(ac.isCurrentAnimationFinished(d));
+                    break;
+                case Right:
+                    ac.current_animation = 11;
+                    break;
+                case Left:
+                    ac.current_animation = 10;
+                    break;
+                }
+            }
         }
     } //28 40
 
