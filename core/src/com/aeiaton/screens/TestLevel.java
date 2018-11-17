@@ -22,7 +22,7 @@ public class TestLevel extends Level {
         //super(game, "maps\\control_room_map.tmx");
         
         testECS();
-        sounds();
+        //sounds();
     }
     
     public void sounds() {
@@ -41,13 +41,14 @@ public class TestLevel extends Level {
         
         core.addSystem(new InputSystem());
         core.addSystem(new MovementSystem(world));
-        core.addSystem(new RenderSystem(player));
+        core.addSystem(new RenderSystem(player, core));
         core.addSystem(new CameraSystem(this.camera));
         core.addSystem(new AnimationSystem());
         core.addSystem(new PlayerStateSystem());
         core.addSystem(new InteractableItemSystem(world));
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
+        core.addSystem(new GameStateSystem(game));
         
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1228, 1669), new Vector2(20, 20), new Vector2(10, 10), 10f, 500f, "0:player", false, false));
@@ -92,6 +93,7 @@ public class TestLevel extends Level {
         world.step(1/60f, 1, 1);
         stage.act();
         map_renderer.setView(camera);
+        debug_window.update();
     }
     
     @Override
@@ -102,7 +104,7 @@ public class TestLevel extends Level {
         map_renderer.render();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        core.render(game.batch);
+        core.render(game.batch, false);
         game.batch.end();
         game.batch.setProjectionMatrix(ui_camera.combined);
         game.batch.begin();
@@ -111,7 +113,7 @@ public class TestLevel extends Level {
         game.batch.end();
         //stage.setDebugAll(true);
         stage.draw();
-        debug_renderer.render(world, camera.combined);
+        //debug_renderer.render(world, camera.combined);
     }
 
 }

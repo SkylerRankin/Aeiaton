@@ -35,13 +35,13 @@ public class BodyContactListener implements ContactListener {
             if (debug) System.out.println("BodyContactListener: begin contact");
             String object = (String) other.getUserData();
             if (debug) System.out.println("BodyContactListener: object="+object);
-            if (object.length() > 1 && object.charAt(2) == 'T') {
+            if (object != null && object.length() > 1 && object.charAt(2) == 'T') {
                 int id = Integer.parseInt(object.substring(0,1));
                 observer.recieve(new ObjectActivationEvent(id));
                 int i = Integer.parseInt(object.substring(object.indexOf("T")+1, object.indexOf("T")+2));
                 if (debug) System.out.println("BodyContactListener: terminal "+i);
                 observer.recieve(new TerminalEvent(i));
-            } else if (object.length() > 1 && object.substring(2, 6).equals("door")) {
+            } else if (object != null && object.length() > 1 && object.substring(2, 6).equals("door")) {
                 String l = object.substring(7, object.length());
                 observer.recieve(new DoorOpenEvent(Integer.parseInt(object.substring(0, 1))));
             }
@@ -69,7 +69,7 @@ public class BodyContactListener implements ContactListener {
             
             String object = (String) other.getUserData();
             
-            if (object.length() > 1 && object.charAt(2) == 'T') {
+            if (object != null && object.length() > 1 && object.charAt(2) == 'T') {
                 int id = Integer.parseInt(object.substring(0,1));
                 observer.recieve(new ObjectActivationEvent(id));
             }

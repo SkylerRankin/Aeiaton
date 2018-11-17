@@ -12,8 +12,8 @@ public class GameStateSystem extends EntitySystem {
     
     private Aeiaton game;
 
-    public GameStateSystem(int p, Aeiaton g) {
-        super(p);
+    public GameStateSystem(Aeiaton g) {
+        super(12);
         game = g;
     }
 
@@ -26,9 +26,11 @@ public class GameStateSystem extends EntitySystem {
                 Class<?> c = Class.forName(cle.level);
                 Constructor<?> constructor = c.getConstructor(Aeiaton.class);
                 Level level = (Level) constructor.newInstance(game);
+                System.out.println("GameStateSystem: changing level to "+level.getClass());
                 game.setScreen(level);
             } catch (Exception err) {
                 System.out.println("Error changing levels: "+err.getLocalizedMessage());
+                err.printStackTrace();
             }
             
             break;

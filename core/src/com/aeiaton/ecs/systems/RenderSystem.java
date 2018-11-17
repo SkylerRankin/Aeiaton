@@ -1,9 +1,13 @@
 package com.aeiaton.ecs.systems;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.aeiaton.ecs.ECSCore;
 import com.aeiaton.ecs.Entity;
 import com.aeiaton.ecs.components.MovementComponent;
+import com.aeiaton.ecs.components.ParallaxLayer;
+import com.aeiaton.ecs.components.RawPositionComponent;
 import com.aeiaton.ecs.components.RenderComponent;
 import com.aeiaton.observer.Event;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,12 +19,14 @@ import com.badlogic.gdx.utils.Array;
 
 public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
 
+    private ECSCore core;
     private Entity player;
     private ArrayList<Entity> above;
     private ArrayList<Entity> below;
     
-    public RenderSystem(Entity p) {
+    public RenderSystem(Entity p, ECSCore core) {
         super(10, RenderComponent.class);
+        this.core = core;
         player = p;
         above = new ArrayList<>();
         below = new ArrayList<>();
@@ -31,13 +37,12 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         
     }
     
-    public void render(SpriteBatch batch) {
-        /*
-        for (Entity e : entities) {
-            MovementComponent mc = e.get(MovementComponent.class);
-            RenderComponent rc = e.get(RenderComponent.class);
-            batch.draw(rc.texture_region, mc.body.getPosition().x - (mc.size.x / 2), mc.body.getPosition().y - (mc.size.y / 2), rc.width, rc.height);
-        }*/
+    public void render(SpriteBatch batch, boolean back) {
+        if (back) {
+          drawBackgrounds(batch);
+          return;
+        }
+        
         partition();
         
         for (Entity e : below) {
@@ -57,16 +62,27 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         }
     }
     
+    private void drawBackgrounds(SpriteBatch batch) {
+        List<Entity> sorted = ((ParallaxSystem) core.getSystem(ParallaxSystem.class)).sorted;
+        for (Entity e : sorted) {
+            RawPositionComponent rpc = e.get(RawPositionComponent.class);
+            RenderComponent rc = e.get(RenderComponent.class);
+            batch.draw(rc.texture_region, rpc.x, rpc.y, rc.width, rc.height);
+        }
+    }
+    
     private void partition() {
         above.clear();
         below.clear();
         MovementComponent mc = player.get(MovementComponent.class);
         for (Entity e : entities) {
-            MovementComponent _mc = e.get(MovementComponent.class);
-            if (_mc.body.getPosition().y < mc.body.getPosition().y) {
-                above.add(e);
-            } else {
-                below.add(e);
+            if (e.hasComponent(MovementComponent.class)) {
+                MovementComponent _mc = e.get(MovementComponent.class);
+                if (_mc.body.getPosition().y < mc.body.getPosition().y) {
+                    above.add(e);
+                } else {
+                    below.add(e);
+                }
             }
         }
     }
