@@ -3,6 +3,7 @@ package com.aeiaton.screens;
 import com.aeiaton.Aeiaton;
 import com.aeiaton.ecs.ECSCore;
 import com.aeiaton.observer.Observer;
+import com.aeiaton.ui.DebugWindow;
 import com.aeiaton.ui.UIManager;
 import com.aeiaton.util.BodyContactListener;
 import com.aeiaton.util.WorldBuilder;
@@ -44,6 +45,7 @@ public class Level implements Screen {
     /** UI **/
     protected UIManager ui;
     protected Stage stage;
+    protected DebugWindow debug_window;
     
     /** File paths **/
     protected String map_path;
@@ -59,7 +61,7 @@ public class Level implements Screen {
         ui = new UIManager();
         stage = new Stage();
         debug_renderer = new Box2DDebugRenderer();
-        camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
+        camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH / Aeiaton.PPM, Aeiaton.DEFAULT_HEIGHT / Aeiaton.PPM);
         ui_camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         ui_camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);        
@@ -72,6 +74,8 @@ public class Level implements Screen {
         contact_listener = new BodyContactListener(observer);
         world.setContactListener(contact_listener);
         Gdx.input.setInputProcessor(stage);
+        debug_window = new DebugWindow(viewport);
+        stage.addActor(debug_window);
     }
 
     @Override

@@ -22,6 +22,7 @@ public class PlayerStateSystem extends EntitySystem {
             PlayerInputComponent pic = e.get(PlayerInputComponent.class);
             PlayerStateComponent psc = e.get(PlayerStateComponent.class);
             AnimationComponent ac = e.get(AnimationComponent.class);
+            
             if (psc.state.equals(PlayerState.Beam) && !ac.isCurrentAnimationFinished(d)) {
                 continue;
             }
@@ -62,8 +63,11 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Beam;
                 ac.current_animation = 8;
             }
+            if (pic.enter) {
+                System.out.println("enter");
+                psc.state = PlayerState.Dash;
+            }
             if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
-                observer.recieve(new BeamEvent());
                 psc.state = PlayerState.Beam;
                 ac.time = 0;
                 switch (psc.direction) {
@@ -71,7 +75,6 @@ public class PlayerStateSystem extends EntitySystem {
                     break;
                 case Down:
                     ac.current_animation = 9;
-                    System.out.println(ac.isCurrentAnimationFinished(d));
                     break;
                 case Right:
                     ac.current_animation = 11;
@@ -81,6 +84,7 @@ public class PlayerStateSystem extends EntitySystem {
                     break;
                 }
             }
+            System.out.println(psc.state);
         }
     } //28 40
 

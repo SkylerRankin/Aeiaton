@@ -5,6 +5,7 @@ import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.components.DirectionalHitboxComponent;
 import com.aeiaton.ecs.components.MovementComponent;
 import com.aeiaton.ecs.components.PlayerInputComponent;
+import com.aeiaton.ecs.components.PlayerStateComponent;
 import com.aeiaton.observer.Event;
 import com.aeiaton.observer.FreezeEvent;
 import com.aeiaton.observer.PunchEvent;
@@ -18,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
 
     private World world;
-    private boolean frozen;
     
     public MovementSystem(World world) {
         super(2, MovementComponent.class);
@@ -32,13 +32,18 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
     @Override
     public void update(float d) {
         for (Entity e : entities) {
-            if (!frozen && e.hasComponent(PlayerInputComponent.class)) {
+            if (e.hasComponent(PlayerInputComponent.class)) {
+                PlayerStateComponent psc = e.get(PlayerStateComponent.class);
                 PlayerInputComponent pic = e.get(PlayerInputComponent.class);
                 MovementComponent mc = e.get(MovementComponent.class);
+                if (psc.state.equals(PlayerStateComponent.PlayerState.Dash)) {
+                    mc.body.applyLinearImpulse(new Vector2(0, mc.dash_force), mc.body.getWorldCenter(), true);
+                    return;
+                }
                 if (pic.up) { mc.body.applyLinearImpulse(new Vector2(0, mc.walk_force), mc.body.getWorldCenter(), true); }
-                if (pic.down) { mc.body.applyLinearImpulse(new Vector2(0, -mc.walk_force), mc.body.getWorldCenter(), true); }
-                if (pic.left) { mc.body.applyLinearImpulse(new Vector2(-mc.walk_force, 0), mc.body.getWorldCenter(), true); }
-                if (pic.right) { mc.body.applyLinearImpulse(new Vector2(mc.walk_force, 0), mc.body.getWorldCenter(), true); }
+                else if (pic.down) { mc.body.applyLinearImpulse(new Vector2(0, -mc.walk_force), mc.body.getWorldCenter(), true); }
+                else if (pic.left) { mc.body.applyLinearImpulse(new Vector2(-mc.walk_force, 0), mc.body.getWorldCenter(), true); }
+                else if (pic.right) { mc.body.applyLinearImpulse(new Vector2(mc.walk_force, 0), mc.body.getWorldCenter(), true); }
                 //if (pic.i) { mc.body.applyLinearImpulse(new Vector2(mc.dash_force, 0), mc.body.getWorldCenter(), true); }
 //                if (pic.up) { mc.body.setLinearVelocity(0, mc.velocity.y); }
 //                if (pic.down) { mc.body.setLinearVelocity(0, -mc.velocity.y); }
@@ -70,9 +75,6 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
             PunchEvent pe = (PunchEvent) e;
             applyForce(pe.id, pe.force);
             break;
-        case "FreezeEvent":
-            FreezeEvent fe = (FreezeEvent) e;
-            frozen = fe.frozen;
         }
     }
     

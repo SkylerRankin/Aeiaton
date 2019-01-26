@@ -12,7 +12,7 @@ public class FreezeEvent extends Event {
 
     @Override
     public short getID() {
-        return EntitySystem.MovementSystem;
+        return EntitySystem.InputSystem;
     }
 
     @Override

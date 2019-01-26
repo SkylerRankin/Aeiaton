@@ -1,13 +1,16 @@
 package com.aeiaton.ecs.systems;
 
+
 import com.aeiaton.Aeiaton;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.observer.Event;
 import com.aeiaton.observer.FreezeEvent;
 import com.aeiaton.observer.TerminalEvent;
+import com.aeiaton.observer.TitleEvent;
 import com.aeiaton.ui.TerminalWindow;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,10 +32,13 @@ public class UISystem extends EntitySystem {
     
     private Array<TextureRegion> temp;
     
+    //Current UI objects
     private TerminalEvent terminal_event = null;
     private boolean terminal_open = false;
+    private TitleEvent title_event = null;
     
     private Stage stage;
+    private BitmapFont font = new BitmapFont();
 
     public UISystem(Stage stage) {
         super(0);
@@ -47,13 +53,16 @@ public class UISystem extends EntitySystem {
 
     @Override
     public void notify(Event e) {
+        if (debug) System.out.println(e.getName()+" recieved");
         switch (e.getName()) {
         case "Punch Event":
             pos = pos < max ? pos+1 : max;
             break;
         case "TerminalEvent":
-            if (debug) System.out.println("TerminalEvent recieved");
             terminal_event = (TerminalEvent) e;
+            break;
+        case "TitleEvent":
+            title_event = (TitleEvent) e;
             break;
         }
         
@@ -77,12 +86,21 @@ public class UISystem extends EntitySystem {
                 terminal_open = false;
                 observer.recieve(new FreezeEvent(false));
             }
-            
+        }
+        if (title_event != null && title_event.duration >= 0) {
+            title_event.duration -= d;
+            if (title_event.duration <= 0) {
+                System.out.println("Title ended: "+title_event.text);
+                title_event = null;
+            }
         }
     }
     
     public void draw(SpriteBatch batch) {
         batch.draw(temp.get(pos), padding, Aeiaton.DEFAULT_HEIGHT - height - padding);
+        if (title_event != null) {
+            font.draw(batch, title_event.text, Aeiaton.DEFAULT_WIDTH/2, Aeiaton.DEFAULT_HEIGHT/2);
+        }
     }
 
 }

@@ -41,8 +41,6 @@ public class DoorSystem extends EntitySystem {
             AnimationComponent ac = e.get(AnimationComponent.class);
             if (ac.current_animation == 1 && ac.isCurrentAnimationFinished(d)) {
                 ac.current_animation = 2;
-                DoorComponent dc = e.get(DoorComponent.class);
-                observer.recieve(new ChangeLevelEvent(dc.level));
             }
         }
     }

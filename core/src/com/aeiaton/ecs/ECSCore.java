@@ -30,10 +30,10 @@ public class ECSCore {
         }
     }
     
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, boolean back) {
         for (EntitySystem s : system_handler.system_queue) {
             if (s.getClass() == RenderSystem.class) {
-                ((RenderSystem) s).render(batch);
+                ((RenderSystem) s).render(batch, back);
                 return;
             }
         }

@@ -5,13 +5,12 @@ import java.util.Queue;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.SystemHandler;
 
-
 public class Observer {
     
     private static final int max_messages = 10;
     private SystemHandler system_handler;
     private Queue<Event> queue;
-    private boolean debug = true;
+    private boolean debug = false;
     
     public Observer(SystemHandler sh) {
         system_handler = sh;
@@ -35,8 +34,8 @@ public class Observer {
     
     private void dispatch(Event e) {
         for (EntitySystem system : system_handler.getAll()) {
-            if ((e.getID() & system.getID()) > 0) {
-                if (debug) System.out.println("Observer: Dispatch "+e.getMessage());
+            if ((e.getID() & system.getID()) != 0) {
+                if (debug) System.out.println("Observer: Dispatch "+e.getName() + " to "+system.getClass());
                 system.notify(e);
             }
         }
