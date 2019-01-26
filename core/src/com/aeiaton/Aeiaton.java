@@ -9,7 +9,7 @@ public class Aeiaton extends Game {
     
     public static final String version = "0.0.1";
     public static final boolean debug = true;
-    public static final float PPM = 1;
+    public static final float PPM = 100;
     public static final float DEFAULT_WIDTH = 480;
     public static final float DEFAULT_HEIGHT = 270;
     

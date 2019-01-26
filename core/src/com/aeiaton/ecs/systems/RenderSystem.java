@@ -46,9 +46,15 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         partition();
         
         for (Entity e : below) {
-            MovementComponent mc = e.get(MovementComponent.class);
-            RenderComponent rc = e.get(RenderComponent.class);
-            batch.draw(rc.texture_region, mc.body.getPosition().x - (mc.size.x / 2), mc.body.getPosition().y - (mc.size.y / 2), rc.width, rc.height);
+            if (e.hasComponent(MovementComponent.class)) {
+                MovementComponent mc = e.get(MovementComponent.class);
+                RenderComponent rc = e.get(RenderComponent.class);
+                batch.draw(rc.texture_region, mc.body.getPosition().x - (mc.size.x / 2), mc.body.getPosition().y - (mc.size.y / 2), rc.width, rc.height);
+            } else if (e.hasComponent(RawPositionComponent.class)) {
+                RawPositionComponent rpc = e.get(RawPositionComponent.class);
+                RenderComponent rc = e.get(RenderComponent.class);
+                batch.draw(rc.texture_region, rpc.x, rpc.y, rc.width, rc.height);
+            }
         }
         
         MovementComponent mc = player.get(MovementComponent.class);
@@ -56,9 +62,16 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         batch.draw(rc.texture_region, mc.body.getPosition().x - (mc.size.x / 2), mc.body.getPosition().y - (mc.size.y / 2), rc.width, rc.height);
         
         for (Entity e : above) {
-            MovementComponent mc1 = e.get(MovementComponent.class);
-            RenderComponent rc1 = e.get(RenderComponent.class);
-            batch.draw(rc1.texture_region, mc1.body.getPosition().x - (mc1.size.x / 2), mc1.body.getPosition().y - (mc1.size.y / 2), rc1.width, rc1.height);
+            if (e.hasComponent(MovementComponent.class)) {
+                MovementComponent mc1 = e.get(MovementComponent.class);
+                RenderComponent rc1 = e.get(RenderComponent.class);
+                batch.draw(rc1.texture_region, mc1.body.getPosition().x - (mc1.size.x / 2), mc1.body.getPosition().y - (mc1.size.y / 2), rc1.width, rc1.height);
+            } else if (e.hasComponent(RawPositionComponent.class)) {
+                RawPositionComponent rpc = e.get(RawPositionComponent.class);
+                RenderComponent rc1 = e.get(RenderComponent.class);
+                batch.draw(rc1.texture_region, rpc.x, rpc.y, rc1.width, rc1.height);
+            }
+            
         }
     }
     
@@ -79,6 +92,18 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
             if (e.hasComponent(MovementComponent.class)) {
                 MovementComponent _mc = e.get(MovementComponent.class);
                 if (_mc.body.getPosition().y < mc.body.getPosition().y) {
+                    above.add(e);
+                } else {
+                    below.add(e);
+                }
+            } else if (e.hasComponent(RawPositionComponent.class)) {
+                RawPositionComponent _rpc = e.get(RawPositionComponent.class);
+                if (_rpc.above_player == -1) {
+                    below.add(e);
+                } else if (_rpc.above_player == 1) {
+                    above.add(e);
+                }
+                else if (_rpc.y < mc.body.getPosition().y) {
                     above.add(e);
                 } else {
                     below.add(e);

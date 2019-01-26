@@ -12,5 +12,7 @@ public class PlayerInputComponent implements Component {
     public boolean i;
     public boolean o;
     public boolean p;
+    public boolean space;
+    public boolean enter;
 
 }

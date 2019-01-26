@@ -6,6 +6,7 @@ import com.aeiaton.ecs.Entity;
 import com.aeiaton.ecs.components.*;
 import com.aeiaton.ecs.components.CameraFollowComponent.FollowMode;
 import com.aeiaton.ecs.systems.*;
+import com.aeiaton.observer.TitleEvent;
 import com.aeiaton.ui.TerminalWindow;
 import com.aeiaton.util.ComputerTerminalData;
 import com.badlogic.gdx.Gdx;
@@ -13,12 +14,13 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class TestLevel extends Level {
 
     public TestLevel(Aeiaton game) {
-        super(game, "demo_maps\\control_room.tmx");
+        super(game, "demo_maps\\Control Room [Kavrohs Mine].tmx");
         //super(game, "maps\\control_room_map.tmx");
         
         testECS();
@@ -37,6 +39,7 @@ public class TestLevel extends Level {
         Entity computer1 = new Entity();
         Entity computer2 = new Entity();
         Entity door = new Entity();
+        Entity ceiling_hack = new Entity();
         //120x165, 12 frames
         
         core.addSystem(new InputSystem());
@@ -51,7 +54,7 @@ public class TestLevel extends Level {
         core.addSystem(new GameStateSystem(game));
         
         player.addComponent(new PlayerInputComponent());
-        player.addComponent(new MovementComponent(world, new Vector2(1228, 1669), new Vector2(20, 20), new Vector2(10, 10), 10f, 500f, "0:player", false, false));
+        player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));
         player.addComponent(new AnimationComponent(.05f, 15, 37, 
                 new String[] {"robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_energy_blast", "robot_front_energy_shot", "robot_side_energy_shot", "robot_side_energy_shot"}, 
@@ -62,7 +65,7 @@ public class TestLevel extends Level {
         player.addComponent(new PlayerStateComponent());
         player.addComponent(new DirectionalHitboxComponent(world, new Vector2(20,20), new Vector2(1228, 1669), 20));
         
-        guard.addComponent(new MovementComponent(world, new Vector2(1228, 1669), new Vector2(10, 10), new Vector2(10, 10), 0, 0, "1:npc", true, false));
+        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 0, 0, "1:npc", true, false));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
         
@@ -76,14 +79,20 @@ public class TestLevel extends Level {
         
         door.addComponent(new RenderComponent(120, 165));
         door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
-        door.addComponent(new MovementComponent(world, new Vector2(1155, 1710), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "4:door:Test2Level", true, true));
+        door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true));
         door.addComponent(new DoorComponent());
+        
+        RenderComponent ceiling_rc = new RenderComponent(120, 75);
+        ceiling_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("ceiling_hack.png")));
+        ceiling_hack.addComponent(ceiling_rc);
+        ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
         core.addEntity(player);
         core.addEntity(guard);
-        core.addEntity(computer1);
-        core.addEntity(computer2);
+        //core.addEntity(computer1);
+        //core.addEntity(computer2);
         core.addEntity(door);
+        core.addEntity(ceiling_hack);
     }
     
     @Override
@@ -111,9 +120,9 @@ public class TestLevel extends Level {
         ((UISystem) core.getSystem(UISystem.class)).draw(game.batch);
         //ui.draw(game.batch);
         game.batch.end();
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
         stage.draw();
-        //debug_renderer.render(world, camera.combined);
+        debug_renderer.render(world, camera.combined);
     }
 
 }

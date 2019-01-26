@@ -29,7 +29,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Test2Level extends Level {
 
     public Test2Level(Aeiaton game) {
-        super(game, "demo_maps\\Kavrohs_Platform.tmx");
+        super(game, "demo_maps\\Kavrohs Platform.tmx");
         testECS();
         camera.zoom = 1.5f;
         sounds();
@@ -70,7 +70,7 @@ public class Test2Level extends Level {
         
         for (int i = layers.length-1; i >= 0; --i) {
             Entity layer = new Entity();
-            layer.addComponent(new RawPositionComponent(x, y));
+            layer.addComponent(new RawPositionComponent(x, y, -1));
             layer.addComponent(new RenderComponent(width, height));
             layer.addComponent(new ParallaxLayer(0, i, "backgrounds\\"+layers[i]+".png"));
             core.addEntity(layer);

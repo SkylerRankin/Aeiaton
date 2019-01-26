@@ -21,7 +21,8 @@ public class MovementComponent implements Component {
     public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data, boolean isBoundary, boolean hitsDirectional) {
         position = p;
         velocity = v;
-        size = s;
+        size.x = s.x / Aeiaton.PPM;
+        size.y = s.y / Aeiaton.PPM;
         walk_force = w;
         dash_force = d;
         
@@ -30,9 +31,9 @@ public class MovementComponent implements Component {
         shape = new PolygonShape();
         
         bdef.type = isBoundary ? BodyDef.BodyType.StaticBody : BodyDef.BodyType.DynamicBody;
-        bdef.position.set(position.x + (s.x / 2), position.y + (s.y / 2));
+        bdef.position.set((position.x + (s.x / 2))/Aeiaton.PPM, (position.y + (s.y / 2))/Aeiaton.PPM);
         body = world.createBody(bdef);
-        shape.setAsBox(s.x / 2, s.y / 2);
+        shape.setAsBox(s.x / 2 / Aeiaton.PPM, s.y / 2 / Aeiaton.PPM);
         if (isBoundary) {
             fdef.filter.categoryBits = hitsDirectional ? Aeiaton.BOUNDARY_BIT | Aeiaton.INTERACTABLE_BIT : Aeiaton.BOUNDARY_BIT;
             fdef.filter.maskBits = hitsDirectional ? Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT : Aeiaton.BOUNDARY_BIT;
@@ -51,8 +52,8 @@ public class MovementComponent implements Component {
         for (Body b : bodies) {
             if (b.getUserData() != null && b.getUserData().equals("ground")) {
                 FrictionJointDef frictionJointDef = new FrictionJointDef();
-                frictionJointDef.maxForce = 400;
-                frictionJointDef.maxTorque = 400;
+                frictionJointDef.maxForce = 40;
+                frictionJointDef.maxTorque = 40;
                 frictionJointDef.initialize(b, body, new Vector2(0, 0));
                 world.createJoint(frictionJointDef);
             }

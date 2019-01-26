@@ -21,7 +21,7 @@ public class DebugWindow extends Table {
         mouse_screen = new Label("Mouse Screen:", skin);
         setWidth(200);
         setHeight(100);
-        setVisible(false);
+        setVisible(true);
         setPosition(0, 0);
         add(mouse_abs);
         row();

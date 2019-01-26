@@ -61,7 +61,7 @@ public class Level implements Screen {
         ui = new UIManager();
         stage = new Stage();
         debug_renderer = new Box2DDebugRenderer();
-        camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
+        camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH / Aeiaton.PPM, Aeiaton.DEFAULT_HEIGHT / Aeiaton.PPM);
         ui_camera = new OrthographicCamera(Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);
         ui_camera.setToOrtho(false, Aeiaton.DEFAULT_WIDTH, Aeiaton.DEFAULT_HEIGHT);        
