@@ -79,7 +79,7 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
             }
             
         }
-        if (((CombatSystem) core.getSystem(CombatSystem.class)) != null) {
+        if (((CombatSystem) core.getSystem(CombatSystem.class)) != null && ((CombatSystem) core.getSystem(CombatSystem.class)).laser_active) {
             for (List<Vector2> line : ((CombatSystem) core.getSystem(CombatSystem.class)).lasergrid.getLines()) {
                 drawLine(new Vector2(line.get(0).x, line.get(0).y), new Vector2(line.get(1).x, line.get(1).y), 6, Color.RED, ((CameraSystem) core.getSystem(CameraSystem.class)).getCameraProjectionMatrix(), 0.4f, 1);
             }
