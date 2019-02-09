@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class TestLevel extends Level {
 
@@ -41,6 +42,8 @@ public class TestLevel extends Level {
         Entity door = new Entity();
         Entity ceiling_hack = new Entity();
         //120x165, 12 frames
+        camera.position.x = 12;
+        camera.position.y= 26;
         
         core.addSystem(new InputSystem());
         core.addSystem(new MovementSystem(world));
@@ -52,6 +55,7 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
+        core.addSystem(new CombatSystem());
         
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
