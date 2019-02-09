@@ -41,7 +41,7 @@ public class BodyContactListener implements ContactListener {
                 int i = Integer.parseInt(object.substring(object.indexOf("T")+1, object.indexOf("T")+2));
                 if (debug) System.out.println("BodyContactListener: terminal "+i);
                 observer.recieve(new TerminalEvent(i));
-            } else if (object != null && object.length() > 1 && object.substring(2, 6).equals("door")) {
+            } else if (object != null && object.length() >= 6 && object.substring(2, 6).equals("door")) {
                 String l = object.substring(7, object.length());
                 observer.recieve(new DoorOpenEvent(Integer.parseInt(object.substring(0, 1))));
             }
