@@ -91,15 +91,13 @@ public class TestLevel extends Level {
         ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
         RenderComponent mirror_rc = new RenderComponent(22,18);
-        TextureAtlas mirrorAtlas = new TextureAtlas("sprites//sprites.atlas");
-        mirror_rc.texture_region = new TextureRegion(mirrorAtlas.findRegion("computer"), 0,0, 22, 18);
-
+        mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
         mirror.addComponent(new MirrorComponent(0));
         mirror.addComponent(new InteractableComponent(null, null));
         mirror.addComponent(mirror_rc);
-        
         mirror.addComponent(new MovementComponent(world, new Vector2(1100, 2700),
                             new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true, count++));
+
         core.addEntity(player);
         core.addEntity(guard); 
         //core.addEntity(computer1); 

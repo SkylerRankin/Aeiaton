@@ -7,6 +7,7 @@ import com.aeiaton.ecs.components.MirrorComponent;
 import com.aeiaton.ecs.components.MovementComponent;
 import com.aeiaton.ecs.components.RenderComponent;
 import com.aeiaton.observer.Event;
+import com.aeiaton.observer.MirrorRotateEvent;
 import com.aeiaton.observer.ObjectActivationEvent;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,21 +34,13 @@ public class InteractableItemSystem extends EntitySystem {
     public void update(float d) {
         //if (!init) init();
         //if (next_activation == null) return; 
-        for (Entity e : entities) {
-            if (e.hasComponent(MirrorComponent.class)) {
-                MirrorComponent mc = e.get(MirrorComponent.class);
-                mc.counter = (mc.counter + 1) % 60;
-                if (mc.counter == 59) {  
-                    System.out.println("Flip");                    
-                    mc.dir = (mc.dir + 1) % 4;
-                    RenderComponent rc = e.get(RenderComponent.class);
-                    rc.texture_region = mc.dir < 2 ? mc.comp : mc.yellow_comp;
-                    System.out.println(mc.dir);            
-                }
-            }
+        for (Entity e : entities) {    
+            
+            
         }
+    }
 
-        /*if (next_activation == e.id) {
+    /*if (next_activation == e.id) {
                 RenderComponent rc = e.get(RenderComponent.class);
                 InteractableComponent ic = e.get(InteractableComponent.class);
                 if (event) {
@@ -58,31 +51,47 @@ public class InteractableItemSystem extends EntitySystem {
                 if (!ic.active) next_activation = null;
                 return;
             } */
+
+
+
+    @Override
+    public void notify(Event e) {
+        switch (e.getName()) {
+        case "ObjectActivationEvent":
+            next_activation = ((ObjectActivationEvent) e).id;
+            event = true;
+            break;
+        case "MirrorRotateEvent":
+            MirrorRotateEvent mre = (MirrorRotateEvent) e;       
+            Entity en = core.getEntity(mre.id);  
+            MirrorComponent mc = en.get(MirrorComponent.class);
+            RenderComponent rc = en.get(RenderComponent.class);
+
+            boolean lf = mre.horizontal;
+            if (lf) {
+                rc.texture_region.flip(false, true);
+            } else {
+                rc.texture_region.flip(true, false);
+            }    
+            mc.dir = (mc.dir + 1) % 4;
+            mc.last_flip = !lf;
+            event = true;
+            break;
+        }
     }
 
-
-@Override
-public void notify(Event e) {
-    switch (e.getName()) {
-    case "ObjectActivationEvent":
-        next_activation = ((ObjectActivationEvent) e).id;
-        event = true;
-        break;
+    @Override
+    public short getID() {
+        return EntitySystem.InteractableItemSystem;
     }
-}
 
-@Override
-public short getID() {
-    return EntitySystem.InteractableItemSystem;
-}
-
-private void init() {
-    init = true;
-    for (Entity e : entities) {
-        RenderComponent rc = e.get(RenderComponent.class);
-        InteractableComponent ic = e.get(InteractableComponent.class);
-        rc.texture_region = atlas.findRegion(ic.inactive_texture);
+    private void init() {
+        init = true;
+        for (Entity e : entities) {
+            RenderComponent rc = e.get(RenderComponent.class);
+            InteractableComponent ic = e.get(InteractableComponent.class);
+            rc.texture_region = atlas.findRegion(ic.inactive_texture);
+        }
     }
-}
 
 }

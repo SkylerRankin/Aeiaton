@@ -41,7 +41,7 @@ public class BodyContactListener implements ContactListener {
             Entity mirror = core.getEntity(id);
             if (mirror != null && mirror.hasComponent(MirrorComponent.class)) {
                 MirrorComponent mc = mirror.get(MirrorComponent.class);
-                MirrorRotateEvent mre = new MirrorRotateEvent(id, mirror.last_flip);
+                MirrorRotateEvent mre = new MirrorRotateEvent(id, mc.last_flip);
                 observer.recieve(mre);
             } else {
                 System.out.println("Mirror entity not found, id="+id);
