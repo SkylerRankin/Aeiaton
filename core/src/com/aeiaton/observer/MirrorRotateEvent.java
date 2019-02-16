@@ -6,7 +6,7 @@ public class MirrorRotateEvent extends Event {
     
     public int id;
     public boolean horizontal;
-    
+        
     public MirrorRotateEvent(int id, boolean hor) {
         this.id = id;
         horizontal = hor;

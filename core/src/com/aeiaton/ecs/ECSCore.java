@@ -55,6 +55,7 @@ public class ECSCore {
     }
     
     public void addSystem(EntitySystem s) {
+        s.setCore(this);
         s.setObserver(observer);
         system_handler.addSystem(s);
     }
