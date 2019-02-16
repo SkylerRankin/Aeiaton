@@ -63,10 +63,6 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Beam;
                 ac.current_animation = 8;
             }
-            if (pic.enter) {
-                System.out.println("enter");
-                psc.state = PlayerState.Dash;
-            }
             if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
                 psc.state = PlayerState.Beam;
                 ac.time = 0;
@@ -84,7 +80,6 @@ public class PlayerStateSystem extends EntitySystem {
                     break;
                 }
             }
-            System.out.println(psc.state);
         }
     } //28 40
 

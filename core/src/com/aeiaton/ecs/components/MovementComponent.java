@@ -1,5 +1,10 @@
 package com.aeiaton.ecs.components;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.aeiaton.Aeiaton;
 import com.aeiaton.ecs.Component;
 import com.badlogic.gdx.math.Vector2;
@@ -18,7 +23,7 @@ public class MovementComponent implements Component {
     public FixtureDef fdef;
     public PolygonShape shape;
     
-    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data, boolean isBoundary, boolean hitsDirectional) {
+    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data, boolean isBoundary, boolean hitsDirectional, Integer id) {
         position = p;
         velocity = v;
         size.x = s.x / Aeiaton.PPM;
@@ -43,8 +48,11 @@ public class MovementComponent implements Component {
         }
         
         fdef.shape = shape;
-        body.setUserData(data);
-        body.createFixture(fdef).setUserData(data);;
+        
+        String[] info = {data, id.toString()};
+        
+        body.setUserData(info);
+        body.createFixture(fdef).setUserData(info);
         
         Array<Body> bodies = new Array<>();
         world.getBodies(bodies);

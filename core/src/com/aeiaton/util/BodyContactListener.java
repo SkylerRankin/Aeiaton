@@ -1,6 +1,10 @@
 package com.aeiaton.util;
+import com.aeiaton.ecs.ECSCore;
+import com.aeiaton.ecs.Entity;
+import com.aeiaton.ecs.components.MirrorComponent;
 import com.aeiaton.observer.ChangeLevelEvent;
 import com.aeiaton.observer.DoorOpenEvent;
+import com.aeiaton.observer.MirrorRotateEvent;
 import com.aeiaton.observer.ObjectActivationEvent;
 import com.aeiaton.observer.Observer;
 import com.aeiaton.observer.TerminalEvent;
@@ -16,9 +20,11 @@ public class BodyContactListener implements ContactListener {
     
     private final boolean debug = true;
     private boolean directional_hitbox_clear;
+    private ECSCore core;
     private Observer observer;
     
-    public BodyContactListener(Observer o) {
+    public BodyContactListener(ECSCore c, Observer o) {
+        core = c;
         observer = o;
         directional_hitbox_clear = true;
     }
@@ -27,7 +33,22 @@ public class BodyContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();
+        String[] a_userdata = (String[]) a.getUserData();
+        String[] b_userdata = (String[]) b.getUserData();
+        System.out.println("a"+a_userdata[1]+"b"+b_userdata[1]);
+        if (a_userdata[0].equals("mirror") || b_userdata[0].equals("mirror")) {
+            int id = a_userdata[0].equals("mirror") ? Integer.parseInt(a_userdata[0]) : Integer.parseInt(b_userdata[1]);
+            Entity mirror = core.getEntity(id);
+            if (mirror != null && mirror.hasComponent(MirrorComponent.class)) {
+                MirrorComponent mc = mirror.get(MirrorComponent.class);
+                MirrorRotateEvent mre = new MirrorRotateEvent(id, mirror.last_flip);
+                observer.recieve(mre);
+            } else {
+                System.out.println("Mirror entity not found, id="+id);
+            }
+        }
         
+        /*
         if (directional_hitbox_clear && (a.getUserData() != null && a.getUserData().equals("directional_hitbox")) || (b.getUserData() != null && b.getUserData().equals("directional_hitbox"))) {
             Fixture hitbox = (a.getUserData() != null && a.getUserData().equals("directional_hitbox")) ? a : b;
             Fixture other = a == hitbox ? b : a;
@@ -53,7 +74,7 @@ public class BodyContactListener implements ContactListener {
                 String l = object.substring(4, object.length());
                 //observer.recieve(new ChangeLevelEvent(l));
             }
-        }
+        }*/
     }
 
     @Override
