@@ -1,7 +1,5 @@
 package com.aeiaton.ecs.systems;
 
-import java.awt.Point;
-
 import com.aeiaton.classes.LaserGrid;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.observer.Event;
@@ -26,8 +24,7 @@ public class CombatSystem extends EntitySystem {
         case "LaserEvent":
             laser_active = true;
             LaserEvent le = (LaserEvent) e;
-            System.out.println(le.pos+" "+le.dir);
-            Vector2[] p = {le.pos, new Vector2(le.pos.x+3, le.pos.y)};
+            Vector2[] p = {new Vector2(9,26), new Vector2(9, 27), new Vector2(13, 27), new Vector2(13, 26)};
             lasergrid = new LaserGrid(p, new int[] {}, 3);
             break;
         }
@@ -40,7 +37,11 @@ public class CombatSystem extends EntitySystem {
 
     @Override
     public void update(float d) {
-        
+        if (laser_active) {
+            if (lasergrid.percent < 1) {
+                lasergrid.percent+=0.001;
+            }
+        }
     }
 
 }

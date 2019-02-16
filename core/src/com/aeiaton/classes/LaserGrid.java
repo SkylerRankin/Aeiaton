@@ -10,6 +10,7 @@ public class LaserGrid {
     private Vector2[] points;
     private int[] dir;
     private int end;
+    public float percent = 0.0f;
     
     public LaserGrid(Vector2[] p, int[] d, int e) {
         points = p;
@@ -17,9 +18,18 @@ public class LaserGrid {
         end = e;
     }
     
+    private float total_length() {
+        float l = 0f;
+        for (int i = 0; i < points.length; ++i) {
+            
+        }
+        return l;
+    }
+    
     public List<List<Vector2>> getLines() {
+        int sections = (int)((points.length-1)*percent) + 1;
         List<List<Vector2>> lines = new ArrayList<>();
-        for (int i = 0; i < points.length-1; ++i) {
+        for (int i = 0; i < sections-1; ++i) {
             List<Vector2> line = new ArrayList<>();
             line.add(points[i]);
             line.add(points[i+1]);
@@ -36,7 +46,7 @@ public class LaserGrid {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
 }
