@@ -33,6 +33,7 @@ public class BodyContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();
+      
         String[] a_userdata = (String[]) a.getUserData();
         String[] b_userdata = (String[]) b.getUserData();
         if (a_userdata[0].equals("mirror") || b_userdata[0].equals("mirror")) {

@@ -40,10 +40,6 @@ public class InteractableItemSystem extends EntitySystem {
                     rotate_mirror();
                 }
             }
-            
-            //other components
-            
-            
         }
     }
 

@@ -60,7 +60,6 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
                 else if (pic.down) { dhc.direction = new Vector2(0, -1); }
                 else if (pic.left) { dhc.direction = new Vector2(-1, 0); }
                 else if (pic.right) { dhc.direction = new Vector2(1, 0); }
-                
                 Vector2 pos = mc.body.getTransform().getPosition();
                 Vector2 adj = new Vector2(pos.x + dhc.direction.x*dhc.offset, pos.y + dhc.direction.y*dhc.offset);
                 dhc.body.setTransform(adj, 0);

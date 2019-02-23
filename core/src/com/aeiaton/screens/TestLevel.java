@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class TestLevel extends Level {
 
@@ -43,6 +44,8 @@ public class TestLevel extends Level {
         Entity ceiling_hack = new Entity();
         Entity mirror = new Entity();
         //120x165, 12 frames
+        camera.position.x = 12;
+        camera.position.y= 26;
         
         core.addSystem(new InputSystem());
         core.addSystem(new MovementSystem(world));
@@ -54,7 +57,10 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
+      
         int count = 0;
+        core.addSystem(new CombatSystem());
+        
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));

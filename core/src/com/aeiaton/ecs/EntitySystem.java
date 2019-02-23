@@ -17,6 +17,7 @@ public abstract class EntitySystem {
     public final static short GameStateSystem = 16;
     public final static short ParallaxSystem = 32;
     public final static short InputSystem = 64;
+    public final static short CombatSystem = 128;
     
     public final int priority;
     protected Observer observer;
