@@ -2,15 +2,19 @@ package com.aeiaton.ecs.components;
 
 import com.aeiaton.ecs.Component;
 
-public class EnemyComponenet implements Component{
+public class EnemyComponent implements Component{
 
     public int speed;
-    public boolean hit;
     public int damage;
+    public enum EnemyState {Idle, Searching, Chasing, Attacking};
+    public enum EnemyDirection {Up, Down, Left, Right}
 
-    public EnemyComponent(int speed, boolean hit, int damage){
+    public EnemyState state = EnemyState.Idle;
+    public EnemyDirection direction = EnemyDirection.Up;
+
+
+    public EnemyComponent(int speed, int damage){
         this.speed = speed;
-        this.hit = hit;
         this.damage = damage;
     }
 
