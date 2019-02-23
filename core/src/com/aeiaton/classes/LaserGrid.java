@@ -18,11 +18,10 @@ public class LaserGrid {
         points = p;
         dir = d;
         grid = compute(points[0], dir[0]);
-        System.out.println(totalLength());
         end = e;
     }
     
-    private int totalLength() {
+    public int totalLength() {
         int total_length = 0;
         for (int i = 0; i < grid.size()-1; ++i) {
             total_length += Math.sqrt(Math.pow(grid.get(i).x - grid.get(i+1).x, 2) + Math.pow(grid.get(i).y - grid.get(i+1).y, 2));
@@ -59,27 +58,30 @@ public class LaserGrid {
         return lines;
     }
     
-    //dir  = 1 when up/right
+    
     public static int willCollide(Vector2 v1, int dir) {
+        float e = 0.01f;
         Vector2 v;
         for (int i = 0; i < points.length; i++) {
             v = points[i];
-            if (Math.abs(v.x - v1.x) < 0.1 && (v.y - v1.y)*dir > 0) {
-                return i;
-            } else if (Math.abs(v.y - v1.y) < 0.1 && (v.x - v1.x)*dir > 0) {
-                return i;
+            if (v1.equals(v)) continue;
+            if (Math.abs(v.x - v1.x) < e) {
+                if (dir == Constants.UP && v.y > v1.y) return i;
+                else if (dir == Constants.DOWN && v.y < v1.y) return i;
+            } else if (Math.abs(v.y - v1.y) < e) {
+                if (dir == Constants.LEFT && v.x < v1.x) return i;
+                else if (dir == Constants.RIGHT && v.x > v1.x) return i;
             }
         }
         return -1;
     }
     
-    public static List<Vector2> compute (Vector2 v1, int dir1) {
+    public static List<Vector2> compute(Vector2 v1, int dir1) {
         int i = willCollide(v1, (dir1 == Constants.UP || dir1 == Constants.RIGHT) ? 1 : -1);
         ArrayList<Vector2> l = new ArrayList<Vector2>();
         Vector2 v;
         int d;
-        int count = 0;
-        while (i != -1 && count++ < 10) {
+        while (i != -1) {
             v = points[i];
             d = dir[i];
             l.add(v);
