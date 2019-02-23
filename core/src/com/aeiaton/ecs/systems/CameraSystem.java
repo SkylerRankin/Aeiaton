@@ -6,6 +6,7 @@ import com.aeiaton.ecs.components.CameraFollowComponent;
 import com.aeiaton.ecs.components.MovementComponent;
 import com.aeiaton.observer.Event;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Matrix4;
 
 public class CameraSystem extends EntitySystem {
 
@@ -48,6 +49,10 @@ public class CameraSystem extends EntitySystem {
     public short getID() {
         // TODO Auto-generated method stub
         return 0;
+    }
+    
+    public Matrix4 getCameraProjectionMatrix() {
+        return camera.combined;
     }
 
 }

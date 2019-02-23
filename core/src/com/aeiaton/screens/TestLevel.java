@@ -14,8 +14,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class TestLevel extends Level {
 
@@ -40,7 +42,10 @@ public class TestLevel extends Level {
         Entity computer2 = new Entity();
         Entity door = new Entity();
         Entity ceiling_hack = new Entity();
+        Entity mirror = new Entity();
         //120x165, 12 frames
+        camera.position.x = 12;
+        camera.position.y= 26;
         
         core.addSystem(new InputSystem());
         core.addSystem(new MovementSystem(world));
@@ -52,6 +57,7 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
+        core.addSystem(new CombatSystem());
         
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
@@ -87,12 +93,23 @@ public class TestLevel extends Level {
         ceiling_hack.addComponent(ceiling_rc);
         ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
+        RenderComponent mirror_rc = new RenderComponent(22,18);
+        TextureAtlas mirrorAtlas = new TextureAtlas("sprites//sprites.atlas");
+        mirror_rc.texture_region = new TextureRegion(mirrorAtlas.findRegion("computer"), 0,0, 22, 18);
+
+        mirror.addComponent(new MirrorComponent(0));
+        mirror.addComponent(new InteractableComponent(null, null));
+        mirror.addComponent(mirror_rc);
+        
+        mirror.addComponent(new MovementComponent(world, new Vector2(1100, 2700),
+                            new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true));
         core.addEntity(player);
-        core.addEntity(guard);
-        //core.addEntity(computer1);
+        core.addEntity(guard); 
+        //core.addEntity(computer1); 
         //core.addEntity(computer2);
         core.addEntity(door);
         core.addEntity(ceiling_hack);
+        core.addEntity(mirror);
     }
     
     @Override
