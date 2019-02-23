@@ -52,6 +52,7 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
+        core.addSystem(new EnemySystem(world, player));
         
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
@@ -65,10 +66,12 @@ public class TestLevel extends Level {
         player.addComponent(new PlayerStateComponent());
         player.addComponent(new DirectionalHitboxComponent(world, new Vector2(20,20), new Vector2(1228, 1669), 20));
         
-        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 0, 0, "1:npc", true, false));
+        //.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 500, 0, "1:npc", true, false));
+        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
-        
+        guard.addComponent(new EnemyComponent(10, 10));
+
         computer1.addComponent(new MovementComponent(world, new Vector2(1042, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "2:T0", true, true));
         computer1.addComponent(new RenderComponent(22, 18));
         computer1.addComponent(new InteractableComponent("computer", "computer_yellow"));
