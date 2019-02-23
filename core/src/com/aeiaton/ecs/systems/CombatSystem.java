@@ -14,8 +14,8 @@ public class CombatSystem extends EntitySystem {
     public CombatSystem() {
         super(5);
         
-        //Vector2[] p = {new Vector2(9,26), new Vector2(9, 27), new Vector2(13, 27), new Vector2(13, 26)};
-        //lasergrid = new LaserGrid(p, new int[] {}, 3);
+        Vector2[] p = {new Vector2(12,26), new Vector2(12, 27), new Vector2(13, 27), new Vector2(13, 26), new Vector2(13, 28)};
+        lasergrid = new LaserGrid(p, new int[] {}, 3);
     }
 
     @Override
