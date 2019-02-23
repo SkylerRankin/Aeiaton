@@ -11,19 +11,15 @@ public class LaserGrid {
     private int[] dir;
     private int end;
     public float percent = 0.0f;
+    public float total_length = 0;
     
     public LaserGrid(Vector2[] p, int[] d, int e) {
         points = p;
         dir = d;
         end = e;
-    }
-    
-    private float total_length() {
-        float l = 0f;
-        for (int i = 0; i < points.length; ++i) {
-            
+        for (int i = 0; i < points.length-1; ++i) {
+            total_length += Math.sqrt(Math.pow(p[i].x - p[i+1].x, 2) + Math.pow(p[i].x - p[i+1].x, 2));
         }
-        return l;
     }
     
     public List<List<Vector2>> getLines() {

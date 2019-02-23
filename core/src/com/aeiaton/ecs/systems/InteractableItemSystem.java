@@ -32,20 +32,7 @@ public class InteractableItemSystem extends EntitySystem {
     @Override
     public void update(float d) {
         //if (!init) init();
-        //if (next_activation == null) return; 
-        for (Entity e : entities) {
-            if (e.hasComponent(MirrorComponent.class)) {
-                MirrorComponent mc = e.get(MirrorComponent.class);
-                mc.counter = (mc.counter + 1) % 60;
-                if (mc.counter == 59) {  
-                    System.out.println("Flip");                    
-                    mc.dir = (mc.dir + 1) % 4;
-                    RenderComponent rc = e.get(RenderComponent.class);
-                    rc.texture_region = mc.dir < 2 ? mc.comp : mc.yellow_comp;
-                    System.out.println(mc.dir);            
-                }
-            }
-        }
+        //if (next_activation == null) return;
 
         /*if (next_activation == e.id) {
                 RenderComponent rc = e.get(RenderComponent.class);
