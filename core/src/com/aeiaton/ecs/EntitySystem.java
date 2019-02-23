@@ -21,6 +21,7 @@ public abstract class EntitySystem {
     
     public final int priority;
     protected Observer observer;
+    protected ECSCore core;
     
     //private int count;
     
@@ -56,6 +57,7 @@ public abstract class EntitySystem {
     
     public abstract void notify(Event e);
     public abstract short getID();
+    public void setCore(ECSCore c) { core  = c; }
     
     public boolean uses(Set<Component> components) {
         for (Class<?> c : dependencies) {

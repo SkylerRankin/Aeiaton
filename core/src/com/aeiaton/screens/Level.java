@@ -71,7 +71,7 @@ public class Level implements Screen {
         map_renderer = new OrthogonalTiledMapRenderer(map, 1 / Aeiaton.PPM);
         map_renderer.setView(camera);
         observer = new Observer(core.getSystemHandler());
-        contact_listener = new BodyContactListener(observer);
+        contact_listener = new BodyContactListener(core, observer);
         world.setContactListener(contact_listener);
         Gdx.input.setInputProcessor(stage);
         debug_window = new DebugWindow(viewport);

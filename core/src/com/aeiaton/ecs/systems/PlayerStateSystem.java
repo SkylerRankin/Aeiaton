@@ -63,6 +63,7 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Beam;
                 ac.current_animation = 8;
             }
+
             if (pic.enter) {
                 observer.recieve(new LaserEvent(e));
             }
