@@ -16,12 +16,11 @@ public class CombatSystem extends EntitySystem {
         super(5);
         
         Vector2[] p = {new Vector2(12,26), new Vector2(12, 27), new Vector2(13, 27), new Vector2(13, 26), new Vector2(13, 28)};
-        lasergrid = new LaserGrid(p, new int[] {Constants.UP, Constants.RIGHT, Constants.DOWN, Constants.RIGHT, Constants.RIGHT}, 3);
+        lasergrid = new LaserGrid(p, new int[] {Constants.UP, Constants.RIGHT, Constants.UP, Constants.RIGHT, Constants.RIGHT}, 3);
     }
 
     @Override
     public void notify(Event e) {
-        /*
         switch (e.getName()) {
         case "LaserEvent":
             laser_active = true;
@@ -29,7 +28,7 @@ public class CombatSystem extends EntitySystem {
             Vector2[] p = {new Vector2(9,26), new Vector2(9, 27), new Vector2(13, 27), new Vector2(13, 26)};
             lasergrid = new LaserGrid(p, new int[] {}, 3);
             break;
-        }*/
+        }
     }
 
     @Override

@@ -30,11 +30,26 @@ public class LaserGrid {
     }
     
     public List<List<Vector2>> getLines() {
+        
         if (grid == null) return null;
         //change to grid later
         float remaining = percent*totalLength();
         List<List<Vector2>> lines = new ArrayList<>();
-
+        
+        List<Vector2> l = new ArrayList<>();
+        List<Vector2> g  = LaserGrid.compute(points[0], dir[0]);
+        
+        l.add(points[0]);
+        l.add(g.get(0));
+        lines.add(l);
+        
+        for (int i = 0; i < g.size()-1; ++i) {
+            l = new ArrayList<>();
+            l.add(g.get(i));
+            l.add(g.get(i+1));
+            lines.add(l);
+        }
+        return lines;/*
         for (int i = 0; i < grid.size()-1; ++i) {
             boolean vert = grid.get(i).x == grid.get(i+1).x;
             float d = vert ? grid.get(i).y - grid.get(i+1).y : grid.get(i).x - grid.get(i+1).x;
@@ -55,7 +70,7 @@ public class LaserGrid {
             lines.add(line);
             if (remaining <= 0) break;
         }
-        return lines;
+        return lines;*/
     }
     
     
@@ -77,7 +92,7 @@ public class LaserGrid {
     }
     
     public static List<Vector2> compute(Vector2 v1, int dir1) {
-        int i = willCollide(v1, (dir1 == Constants.UP || dir1 == Constants.RIGHT) ? 1 : -1);
+        int i = willCollide(v1, dir1);
         ArrayList<Vector2> l = new ArrayList<Vector2>();
         Vector2 v;
         int d;
@@ -85,7 +100,7 @@ public class LaserGrid {
             v = points[i];
             d = dir[i];
             l.add(v);
-            i = willCollide(v, (d == Constants.UP || d == Constants.RIGHT) ? 1 : -1);
+            i = willCollide(v, d);
         }
         return l;
     }
