@@ -59,13 +59,14 @@ public class PlayerStateSystem extends EntitySystem {
                 psc.state = PlayerState.Walk;
                 psc.direction = PlayerDirection.Right;
                 ac.current_animation = 7;
-            } else if (pic.o) {
-                psc.state = PlayerState.Beam;
-                ac.current_animation = 8;
+            }
+            
+            if (pic.o) {
+                observer.recieve(new LaserEvent(e));
             }
 
             if (pic.enter) {
-                observer.recieve(new LaserEvent(e));
+                //observer.recieve(new LaserEvent(e));
             }
             if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
                 psc.state = PlayerState.Beam;

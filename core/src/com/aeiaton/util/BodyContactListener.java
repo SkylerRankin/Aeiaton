@@ -9,6 +9,7 @@ import com.aeiaton.observer.ObjectActivationEvent;
 import com.aeiaton.observer.Observer;
 import com.aeiaton.observer.TerminalEvent;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
