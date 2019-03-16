@@ -65,12 +65,14 @@ public class InteractableItemSystem extends EntitySystem {
         MirrorComponent mc = en.get(MirrorComponent.class);
         RenderComponent rc = en.get(RenderComponent.class);
 
-        if (mc.last_flip) {
+        if (!mc.last_flip) {
             rc.texture_region.flip(false, true);
         } else {
             rc.texture_region.flip(true, false);
         }
-        mc.dir = (mc.dir + 1) % 4;
+        mc.dir = (mc.dir + 1);
+        if (mc.dir > 7) mc.dir = 4;
+        
         mc.last_flip = !mc.last_flip;
         
         //send to combat system once actual rotation has occurred

@@ -9,8 +9,8 @@ public class Constants {
     
     public static final int TOP_RIGHT = 4;
     public static final int BOTTOM_RIGHT = 5;
-    public static final int TOP_LEFT = 6;
-    public static final int BOTTOM_LEFT = 7;
+    public static final int BOTTOM_LEFT = 6;
+    public static final int TOP_LEFT = 7;
 
     public static int opposite(int x) {
         return (x + 2) % 4;

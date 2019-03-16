@@ -33,7 +33,6 @@ public class LaserEvent extends Event {
             default:
                 dir = -1;
             }
-            
         }
     }
 

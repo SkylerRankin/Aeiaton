@@ -17,7 +17,7 @@ public class LaserGrid {
     private Vector2 source;
     private int source_direction;
     
-    private boolean animated = false;
+    private boolean animated = true;
     
     private List<Vector2> computed_path;
     
@@ -87,20 +87,45 @@ public class LaserGrid {
     }
     
     
-    public static int willCollide(Vector2 v1, int dir) {
+    public static int willCollide(Vector2 v1, int d) {
         float e = 0.1f;
         Vector2 v;
+        int p = -1;
+        int distance = Integer.MAX_VALUE;
         for (int i = 0; i < points.length; i++) {
             v = points[i];
             if (v1.equals(v)) continue;
             if (Math.abs(v.x - v1.x) < e) {
-                if (dir == Constants.UP && v.y > v1.y) return i;
-                else if (dir == Constants.DOWN && v.y < v1.y) return i;
+                int dt = (int) Math.abs(v.x - v1.x);
+                if (d == Constants.UP && v.y > v1.y && distance > dt) {
+                    p = i;
+                    distance = dt;
+                }
+                else if (d == Constants.DOWN && v.y < v1.y && distance > dt) {
+                    p = i;
+                    distance = dt;
+                }
             } else if (Math.abs(v.y - v1.y) < e) {
-                if (dir == Constants.LEFT && v.x < v1.x) return i;
-                else if (dir == Constants.RIGHT && v.x > v1.x) return i;
+                int dt = (int) Math.abs(v.y - v1.y);
+                if (d == Constants.LEFT && v.x < v1.x && distance > dt) {
+                    p = i;
+                    distance = dt;
+                }
+                else if (d == Constants.RIGHT && v.x > v1.x && distance > dt) {
+                    p = i;
+                    distance = dt;
+                }
             }
         }
+        if (p == -1) return p;
+        //check if direction is correct
+        int[] c = Constants.comps(dir[p]);
+        if (Constants.hor(d)) {
+            if (Constants.opposite(c[0]) == d) return p;
+        } else {
+            if (Constants.opposite(c[1]) == d) return p;
+        }
+        
         return -1;
     }
     
@@ -145,7 +170,7 @@ public class LaserGrid {
     public boolean setSource(Vector2 src, int src_dir) {
         source = src;
         source_direction = src_dir;
-        //System.out.println("LaserGrid: source updated: "+source+", "+dir);
+        //System.out.println("LaserGrid: source updated: "+source+", "+src_dir);
         grid = compute(source, source_direction);
         return grid.size() > 1;
     }
