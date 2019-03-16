@@ -10,14 +10,30 @@ import com.badlogic.gdx.math.Vector2;
 public class LaserEvent extends Event {
     
     public Vector2 pos;
-    public PlayerDirection dir;
+    public int dir;
     
     public LaserEvent(Entity e) {
         if (e.hasComponent(MovementComponent.class) && e.hasComponent(PlayerStateComponent.class)) {
             MovementComponent mc = e.get(MovementComponent.class);
             PlayerStateComponent psc = e.get(PlayerStateComponent.class);
             pos = mc.body.getPosition();
-            dir = psc.direction;
+            switch (psc.direction) {
+            case Up:
+                dir = 0;
+                break;
+            case Right:
+                dir = 1;
+                break;
+            case Down:
+                dir = 2;
+                break;
+            case Left:
+                dir = 3;
+                break;
+            default:
+                dir = -1;
+            }
+            
         }
     }
 

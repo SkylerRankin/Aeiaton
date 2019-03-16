@@ -44,7 +44,7 @@ public class TestLevel extends Level {
         Entity door = new Entity();
         Entity ceiling_hack = new Entity();
         
-        int mirror_count = 4;
+        int mirror_count = 6;
         Entity[] mirrors = new Entity[mirror_count];
         for (int i = 0; i < mirror_count; ++i) mirrors[i] = new Entity();
 
@@ -101,8 +101,8 @@ public class TestLevel extends Level {
         ceiling_hack.addComponent(ceiling_rc);
         ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
-        Vector2[] positions = {new Vector2(1200, 2600), new Vector2(1200, 2700), new Vector2(1100, 2700), new Vector2(1300, 2700)};
-        int[] directions = {0, 0, 0, 0};
+        Vector2[] positions = {new Vector2(1100, 2700), new Vector2(1200, 2700), new Vector2(1300, 2700), new Vector2(1100, 2600), new Vector2(1200, 2600), new Vector2(1300, 2600)};
+        int[] directions = {Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT};
         ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0);
         for (int i = 0; i < mirrors.length; ++i) {
             RenderComponent mirror_rc = new RenderComponent(22,18);

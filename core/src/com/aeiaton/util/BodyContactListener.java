@@ -34,7 +34,8 @@ public class BodyContactListener implements ContactListener {
     public void beginContact(Contact contact) {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();
-      
+        if (a.getUserData().getClass() != String[].class) return;
+        if (b.getUserData().getClass() != String[].class) return;
         String[] a_userdata = (String[]) a.getUserData();
         String[] b_userdata = (String[]) b.getUserData();
         if (a_userdata[0].equals("mirror") || b_userdata[0].equals("mirror")) {
@@ -54,6 +55,8 @@ public class BodyContactListener implements ContactListener {
     public void endContact(Contact contact) {
         Fixture a = contact.getFixtureA();
         Fixture b = contact.getFixtureB();
+        if (a.getUserData().getClass() != String[].class) return;
+        if (b.getUserData().getClass() != String[].class) return;
         String[] a_userdata = (String[]) a.getUserData();
         String[] b_userdata = (String[]) b.getUserData();
         

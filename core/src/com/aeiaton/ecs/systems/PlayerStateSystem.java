@@ -68,7 +68,8 @@ public class PlayerStateSystem extends EntitySystem {
             if (pic.enter) {
                 //observer.recieve(new LaserEvent(e));
             }
-            if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
+            
+            /*if (pic.o && psc.state != PlayerStateComponent.PlayerState.Beam) {
                 psc.state = PlayerState.Beam;
                 ac.time = 0;
                 switch (psc.direction) {
@@ -84,7 +85,7 @@ public class PlayerStateSystem extends EntitySystem {
                     ac.current_animation = 10;
                     break;
                 }
-            }
+            }*/
         }
     } //28 40
 

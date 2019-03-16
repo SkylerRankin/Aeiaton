@@ -5,6 +5,7 @@ import com.aeiaton.classes.Constants;
 import com.aeiaton.classes.LaserGrid;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.observer.Event;
+import com.aeiaton.observer.FreezeEvent;
 import com.aeiaton.observer.LaserEvent;
 import com.aeiaton.observer.MirrorRotateEvent;
 import com.badlogic.gdx.math.Vector2;
@@ -16,17 +17,19 @@ public class CombatSystem extends EntitySystem {
 
     public CombatSystem() {
         super(5);
-        
-        //Vector2[] p = {new Vector2(12,26), new Vector2(12, 27), new Vector2(13, 27), new Vector2(13, 26), new Vector2(13, 28)};
-        //lasergrid = new LaserGrid(p, new int[] {Constants.UP, Constants.RIGHT, Constants.UP, Constants.RIGHT, Constants.RIGHT}, 3);
     }
 
     @Override
     public void notify(Event e) {
         switch (e.getName()) {
         case "LaserEvent":
+            LaserEvent le = (LaserEvent) e;
             laser_active = !laser_active;
             lasergrid.percent = 0;
+            boolean success = lasergrid.setSource(le.pos, le.dir);
+            if (success) {
+                observer.recieve(new FreezeEvent(laser_active));
+            }
             break;
         case "MirrorRotateEvent":
             MirrorRotateEvent mre = (MirrorRotateEvent) e;

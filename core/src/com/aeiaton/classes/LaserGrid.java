@@ -14,11 +14,21 @@ public class LaserGrid {
     public float percent;
     private float total_length;
     
+    private Vector2 source;
+    private int source_direction;
+    
+    private boolean animated = false;
+    
+    private List<Vector2> computed_path;
+    
     public LaserGrid(Vector2[] p, int[] d, int e) {
         points = p;
-        System.out.println(points[0]);
         dir = d;
+        System.out.println("Starting position and direction"+points[0]+" "+dir[0]);
         grid = compute(points[0], dir[0]);
+        for (Vector2 v : grid) {
+            System.out.println(v);
+        }
         end = e;
     }
     
@@ -30,19 +40,27 @@ public class LaserGrid {
         return total_length;
     }
     
+    /**
+     * Generates a list of lines used to draw the laser in motion
+     * @return A list of lists of vector2s. Each sub list is a tuple of the start and end of a segment of the laser
+     */
     public List<List<Vector2>> getLines() {
         
         if (grid == null) return null;
         
+        if (!animated) {
+            List<List<Vector2>> lines = new ArrayList<>();
+            for (int i = 0; i < grid.size()-1; ++i) {
+                List<Vector2> line = new ArrayList<>();
+                line.add(grid.get(i));
+                line.add(grid.get(i+1));
+                lines.add(line);
+            }
+            return lines;
+        }
+        
         float remaining = percent*totalLength();
         List<List<Vector2>> lines = new ArrayList<>();
-        
-        List<Vector2> l = new ArrayList<>();
-        List<Vector2> g  = LaserGrid.compute(points[0], dir[0]);
-
-        l.add(points[0]);
-        l.add(g.get(0));
-        lines.add(l);
         
         for (int i = 0; i < grid.size()-1; ++i) {
             boolean vert = grid.get(i).x == grid.get(i+1).x;
@@ -57,19 +75,20 @@ public class LaserGrid {
                 if (vert) {
                     line.add(new Vector2(grid.get(i).x, grid.get(i).y+remaining+Math.abs(d)));
                 } else {
-                    line.add(new Vector2(grid.get(i).x+remaining+Math.abs(d), grid.get(i).y));
+                    line.add(new Vector2(grid.get(i).x-(remaining + Math.abs(d)), grid.get(i).y));
                 }
                 remaining = 0;
             }
             lines.add(line);
             if (remaining <= 0) break;
         }
+
         return lines;
     }
     
     
     public static int willCollide(Vector2 v1, int dir) {
-        float e = 0.01f;
+        float e = 0.1f;
         Vector2 v;
         for (int i = 0; i < points.length; i++) {
             v = points[i];
@@ -90,12 +109,27 @@ public class LaserGrid {
         ArrayList<Vector2> l = new ArrayList<Vector2>();
         l.add(v1);
         Vector2 v;
+        //direction of the travelling laser
+        int prev_d = dir1;
+        //direction of the outputted laser
         int d;
-        while (i != -1) {
+        int max = 6;
+        while (i != -1 && max > 0) {
+            //get next point that is collided with
             v = points[i];
-            d = dir[i];
+            //direction is a corner: convert to up/down/right/left
+            int[] c = Constants.comps(dir[i]);
+            if (Constants.hor(prev_d)) {
+                //hit the laser horizontally
+                d = c[1];
+            } else {
+                //hit the laser vertically
+                d = c[0];
+            }
+            prev_d = d;
             l.add(v);
             i = willCollide(v, d);
+            max--;
         }
         return l;
     }
@@ -103,9 +137,17 @@ public class LaserGrid {
     public void setDirection(int index, int value) {
         if (index < LaserGrid.dir.length) {
             LaserGrid.dir[index] = value;
-            System.out.println("LaserGrid: mirror "+index+" updated to "+value);
+            //System.out.println("LaserGrid: mirror "+index+" updated to "+value);
             grid = compute(points[0], dir[0]);
         }
+    }
+    
+    public boolean setSource(Vector2 src, int src_dir) {
+        source = src;
+        source_direction = src_dir;
+        //System.out.println("LaserGrid: source updated: "+source+", "+dir);
+        grid = compute(source, source_direction);
+        return grid.size() > 1;
     }
     
 }
