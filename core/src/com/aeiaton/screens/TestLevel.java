@@ -8,6 +8,7 @@ import com.aeiaton.ecs.components.*;
 import com.aeiaton.ecs.components.CameraFollowComponent.FollowMode;
 import com.aeiaton.ecs.systems.*;
 import com.aeiaton.observer.TitleEvent;
+import com.aeiaton.ui.DialogPopup;
 import com.aeiaton.ui.TerminalWindow;
 import com.aeiaton.util.ComputerTerminalData;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +28,9 @@ public class TestLevel extends Level {
         //super(game, "maps\\control_room_map.tmx");
         
         testECS();
+        new DialogPopup("Aeiaton v0.1 Debug Mode", 
+                "Use WASD to move, ENTER to adjust a mirror, and O (not zero) to fire the laser.\nOnce the top left mirror is hit, you may leave the area.",
+                stage).show();
         //sounds();
     }
     
@@ -156,7 +160,7 @@ public class TestLevel extends Level {
         game.batch.end();
         stage.setDebugAll(true);
         stage.draw();
-        debug_renderer.render(world, camera.combined);
+        //debug_renderer.render(world, camera.combined);
     }
 
 }
