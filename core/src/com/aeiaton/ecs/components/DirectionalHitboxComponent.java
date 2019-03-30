@@ -32,7 +32,7 @@ public class DirectionalHitboxComponent implements Component {
         //fdef.filter.categoryBits = Aeiaton.DIRECTIONAL_HITBOX_BIT;
         //fdef.filter.maskBits = Aeiaton.INTERACTABLE_BIT;
         fdef.shape = shape;
-        body.setUserData("directional_hitbox");
-        body.createFixture(fdef).setUserData("directional_hitbox");
+        body.setUserData(new String[] {"directional_hitbox", "directional_hitbox"});
+        body.createFixture(fdef).setUserData(new String[] {"directional_hitbox", "directional_hitbox"});
     }
 }

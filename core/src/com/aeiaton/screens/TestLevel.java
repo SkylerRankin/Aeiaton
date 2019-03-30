@@ -14,8 +14,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class TestLevel extends Level {
 
@@ -40,7 +42,10 @@ public class TestLevel extends Level {
         Entity computer2 = new Entity();
         Entity door = new Entity();
         Entity ceiling_hack = new Entity();
+        Entity mirror = new Entity();
         //120x165, 12 frames
+        camera.position.x = 12;
+        camera.position.y= 26;
         
         core.addSystem(new InputSystem());
         core.addSystem(new MovementSystem(world));
@@ -53,9 +58,12 @@ public class TestLevel extends Level {
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
         core.addSystem(new EnemySystem(world, player));
-        
+      
+        int count = 0;
+        core.addSystem(new CombatSystem());
+      
         player.addComponent(new PlayerInputComponent());
-        player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
+        player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));
         player.addComponent(new AnimationComponent(.05f, 15, 37, 
                 new String[] {"robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_energy_blast", "robot_front_energy_shot", "robot_side_energy_shot", "robot_side_energy_shot"}, 
@@ -71,31 +79,41 @@ public class TestLevel extends Level {
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
         guard.addComponent(new EnemyComponent(10, 10));
-
-        computer1.addComponent(new MovementComponent(world, new Vector2(1042, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "2:T0", true, true));
+        /*
+        computer1.addComponent(new MovementComponent(world, new Vector2(1042, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "2:T0", true, true, count++));
         computer1.addComponent(new RenderComponent(22, 18));
         computer1.addComponent(new InteractableComponent("computer", "computer_yellow"));
         
-        computer2.addComponent(new MovementComponent(world, new Vector2(1386, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "3:T1", true, true));
+        computer2.addComponent(new MovementComponent(world, new Vector2(1386, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "3:T1", true, true, count++));
         computer2.addComponent(new RenderComponent(22, 18));
         computer2.addComponent(new InteractableComponent("computer", "computer_yellow"));
-        
+        */
         door.addComponent(new RenderComponent(120, 165));
         door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
-        door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true));
+        door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true, count++));
         door.addComponent(new DoorComponent());
         
+        count++;
         RenderComponent ceiling_rc = new RenderComponent(120, 75);
         ceiling_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("ceiling_hack.png")));
         ceiling_hack.addComponent(ceiling_rc);
         ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
+        RenderComponent mirror_rc = new RenderComponent(22,18);
+        mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
+        mirror.addComponent(new MirrorComponent(0));
+        mirror.addComponent(new InteractableComponent(null, null));
+        mirror.addComponent(mirror_rc);
+        mirror.addComponent(new MovementComponent(world, new Vector2(1100, 2700),
+                            new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true, count++));
+
         core.addEntity(player);
-        core.addEntity(guard);
-        //core.addEntity(computer1);
+        core.addEntity(guard); 
+        //core.addEntity(computer1); 
         //core.addEntity(computer2);
         core.addEntity(door);
         core.addEntity(ceiling_hack);
+        core.addEntity(mirror);
     }
     
     @Override

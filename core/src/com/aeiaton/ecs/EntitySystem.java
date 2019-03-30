@@ -18,9 +18,11 @@ public abstract class EntitySystem {
     public final static short ParallaxSystem = 32;
     public final static short InputSystem = 64;
     public final static short EnemySystem = 128;
+    public final static short CombatSystem = 256;
     
     public final int priority;
     protected Observer observer;
+    protected ECSCore core;
     
     //private int count;
     
@@ -56,6 +58,7 @@ public abstract class EntitySystem {
     
     public abstract void notify(Event e);
     public abstract short getID();
+    public void setCore(ECSCore c) { core  = c; }
     
     public boolean uses(Set<Component> components) {
         for (Class<?> c : dependencies) {
