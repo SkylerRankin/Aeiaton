@@ -106,7 +106,7 @@ public class TestLevel extends Level {
         
         Vector2[] positions = {new Vector2(1100, 2700), new Vector2(1200, 2700), new Vector2(1300, 2700), new Vector2(1100, 2600), new Vector2(1200, 2600), new Vector2(1300, 2600)};
         int[] directions = {Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT};
-        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0);
+        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0, door.id);
         for (int i = 0; i < mirrors.length; ++i) {
             RenderComponent mirror_rc = new RenderComponent(22,18);
             mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));

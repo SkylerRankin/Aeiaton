@@ -57,12 +57,12 @@ public class CombatSystem extends EntitySystem {
     //**  Getters and Setters for Combat Data  **//
     
     //scales positions by ppm
-    public void setLaserGridPositions(Vector2[] p, int[] d, int end) {
+    public void setLaserGridPositions(Vector2[] p, int[] d, int end, int door) {
         Vector2[] scaled = new Vector2[p.length];
         for (int i = 0; i < p.length; ++i) {
             scaled[i] = new Vector2(p[i].x / Aeiaton.PPM, p[i].y / Aeiaton.PPM);
         }
-        lasergrid = new LaserGrid(scaled, d, end);
+        lasergrid = new LaserGrid(scaled, d, end, this.observer, door);
     }
 
 }
