@@ -17,8 +17,8 @@ public class Aeiaton extends Game {
     public static final short BOUNDARY_BIT = 1;
     public static final short PLAYER_BIT = 2;
     public static final short OBJECT_BIT = 4;
-    public static final short DIRECTIONAL_HITBOX_BIT = 5;
-    public static final short INTERACTABLE_BIT = 6;
+    public static final short DIRECTIONAL_HITBOX_BIT = 8;
+    public static final short INTERACTABLE_BIT = 16;
     
     public SpriteBatch batch;
     
