@@ -9,7 +9,7 @@ public class EnemyComponent implements Component{
     public enum EnemyState {Idle, Searching, Chasing, Attacking};
     public enum EnemyDirection {Up, Down, Left, Right}
 
-    public EnemyState state = EnemyState.Idle;
+    public EnemyState state = EnemyState.Chasing;
     public EnemyDirection direction = EnemyDirection.Up;
 
 

@@ -57,10 +57,11 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
+        core.addSystem(new EnemySystem(world, player));
       
         int count = 0;
         core.addSystem(new CombatSystem());
-        
+      
         player.addComponent(new PlayerInputComponent());
         player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));
@@ -73,9 +74,11 @@ public class TestLevel extends Level {
         player.addComponent(new PlayerStateComponent());
         player.addComponent(new DirectionalHitboxComponent(world, new Vector2(20,20), new Vector2(1228, 1669), 20));
         
-        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 0, 0, "1:npc", true, false, count++));
+        //.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 500, 0, "1:npc", true, false));
+        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
+        guard.addComponent(new EnemyComponent(10, 10));
         /*
         computer1.addComponent(new MovementComponent(world, new Vector2(1042, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "2:T0", true, true, count++));
         computer1.addComponent(new RenderComponent(22, 18));
