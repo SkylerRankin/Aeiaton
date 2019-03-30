@@ -1,6 +1,7 @@
 package com.aeiaton.screens;
 
 import com.aeiaton.Aeiaton;
+import com.aeiaton.classes.Constants;
 import com.aeiaton.ecs.ECSCore;
 import com.aeiaton.ecs.Entity;
 import com.aeiaton.ecs.components.*;
@@ -42,7 +43,11 @@ public class TestLevel extends Level {
         Entity computer2 = new Entity();
         Entity door = new Entity();
         Entity ceiling_hack = new Entity();
-        Entity mirror = new Entity();
+        
+        int mirror_count = 6;
+        Entity[] mirrors = new Entity[mirror_count];
+        for (int i = 0; i < mirror_count; ++i) mirrors[i] = new Entity();
+
         //120x165, 12 frames
         camera.position.x = 12;
         camera.position.y= 26;
@@ -99,13 +104,21 @@ public class TestLevel extends Level {
         ceiling_hack.addComponent(ceiling_rc);
         ceiling_hack.addComponent(new RawPositionComponent(1155, 2895, 1));
         
-        RenderComponent mirror_rc = new RenderComponent(22,18);
-        mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
-        mirror.addComponent(new MirrorComponent(0));
-        mirror.addComponent(new InteractableComponent(null, null));
-        mirror.addComponent(mirror_rc);
-        mirror.addComponent(new MovementComponent(world, new Vector2(1100, 2700),
-                            new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true, count++));
+        Vector2[] positions = {new Vector2(1100, 2700), new Vector2(1200, 2700), new Vector2(1300, 2700), new Vector2(1100, 2600), new Vector2(1200, 2600), new Vector2(1300, 2600)};
+        int[] directions = {Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT};
+        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0);
+        for (int i = 0; i < mirrors.length; ++i) {
+            RenderComponent mirror_rc = new RenderComponent(22,18);
+            mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
+            MirrorComponent mc = new MirrorComponent(directions[i]);
+            mc.index = i;
+            mirrors[i].addComponent(mc);
+            mirrors[i].addComponent(new InteractableComponent(null, null));
+            mirrors[i].addComponent(mirror_rc);
+            mirrors[i].addComponent(new MovementComponent(world, positions[i],
+                                new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true, count++));
+        }
+        
 
         core.addEntity(player);
         core.addEntity(guard); 
@@ -113,7 +126,7 @@ public class TestLevel extends Level {
         //core.addEntity(computer2);
         core.addEntity(door);
         core.addEntity(ceiling_hack);
-        core.addEntity(mirror);
+        for (Entity e : mirrors) core.addEntity(e);
     }
     
     @Override

@@ -79,9 +79,12 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
             }
             
         }
+        
         if (((CombatSystem) core.getSystem(CombatSystem.class)) != null && ((CombatSystem) core.getSystem(CombatSystem.class)).laser_active) {
             for (List<Vector2> line : ((CombatSystem) core.getSystem(CombatSystem.class)).lasergrid.getLines()) {
-                drawLine(new Vector2(line.get(0).x, line.get(0).y), new Vector2(line.get(1).x, line.get(1).y), 6, Color.RED, ((CameraSystem) core.getSystem(CameraSystem.class)).getCameraProjectionMatrix(), 0.4f, 1);
+                drawLine(line.get(0), line.get(1), 6, Color.RED, ((CameraSystem) core.getSystem(CameraSystem.class)).getCameraProjectionMatrix());
+                //drawLine(line.get(0), line.get(1), 6, Color.RED, ((CameraSystem) core.getSystem(CameraSystem.class)).getCameraProjectionMatrix(), 0.4f, 1);
+                //drawLine(new Vector2(line.get(0).x, line.get(0).y), new Vector2(line.get(1).x, line.get(1).y), 6, Color.RED, ((CameraSystem) core.getSystem(CameraSystem.class)).getCameraProjectionMatrix(), 0.4f, 1);
             }
         }
     }
@@ -137,8 +140,9 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
     public void drawLine(Vector2 start, Vector2 end, int lineWidth, Color color, Matrix4 projectionMatrix, float segment, int color_offset) {
         boolean horizontal = Math.abs(start.y - end.y) < 0.01;
         float d = horizontal ? start.x - end.x : start.y - end.y;
+
         int segments = (int) ((int) d / segment);
-        int dir = horizontal ? (start.x < end.x ? 1 : -1) : (start.y < end.y ? 1 : -1);
+        float dir = horizontal ? (start.x < end.x ? 1 : -1) : (start.y < end.y ? 1 : -1);
 
         Gdx.gl.glLineWidth(lineWidth);
         shape_renderer.setProjectionMatrix(projectionMatrix);
@@ -147,7 +151,22 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         Vector2 t_start;
         Vector2 t_end;
         float jitter;
-
+        
+        if (segments == 0) {
+            color.a = (float) (1 - Math.random()*0.5);
+            jitter = (float) ((Math.random() - 0.5)*0.04);
+            shape_renderer.setColor(color);
+            t_end = end;
+            if (horizontal) {
+                t_start = new Vector2(start.x, start.y + jitter);
+                t_end.y += jitter;
+            } else {
+                t_start = new Vector2(start.x + jitter, start.y);
+                t_end.x += jitter;
+            }
+            shape_renderer.line(t_start, t_end);
+        }
+        
         for (int i = 0; i < Math.abs(segments); ++i) {
             color.a = (float) (1 - Math.random()*0.5);
             jitter = (float) ((Math.random() - 0.5)*0.04);

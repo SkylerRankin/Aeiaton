@@ -9,6 +9,7 @@ public class MirrorComponent implements Component {
     public int dir;
     public int counter = 0;
     public boolean last_flip;
+    public int index;
     
     /**
      * @param dir direction mirror is facing: 0 = up, 1 = right, 2 = down, 3 = left

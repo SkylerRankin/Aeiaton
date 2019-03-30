@@ -1,6 +1,7 @@
 package com.aeiaton.ecs.systems;
 
 import com.aeiaton.ecs.Entity;
+import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.components.PlayerInputComponent;
 import com.aeiaton.observer.Event;
 import com.aeiaton.observer.FreezeEvent;
@@ -42,6 +43,6 @@ public class InputSystem extends com.aeiaton.ecs.EntitySystem {
 
     @Override
     public short getID() {
-        return 0;
+        return EntitySystem.InputSystem;
     }
 }

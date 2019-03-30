@@ -36,7 +36,7 @@ public class InteractableItemSystem extends EntitySystem {
         for (Entity e : entities) {
             //mirror components
             if (e.hasComponent(MirrorComponent.class)) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && interacted_id != -1) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && interacted_id != -1 && e.id == interacted_id) {
                     rotate_mirror();
                 }
             }
@@ -48,7 +48,7 @@ public class InteractableItemSystem extends EntitySystem {
         switch (e.getName()) {
         case "MirrorRotateEvent":
             MirrorRotateEvent mre = (MirrorRotateEvent) e;
-            interacted_id = mre.id;
+            if (!mre.clicked) interacted_id = mre.id;
             break;
         }
     }
@@ -59,18 +59,28 @@ public class InteractableItemSystem extends EntitySystem {
     }
     
     //** Entity Specific Methods **//
+    
     private void rotate_mirror() {
         Entity en = core.getEntity(interacted_id);  
         MirrorComponent mc = en.get(MirrorComponent.class);
         RenderComponent rc = en.get(RenderComponent.class);
 
-        if (mc.last_flip) {
+        if (!mc.last_flip) {
             rc.texture_region.flip(false, true);
         } else {
             rc.texture_region.flip(true, false);
-        }    
-        mc.dir = (mc.dir + 1) % 4;
+        }
+        mc.dir = (mc.dir + 1);
+        if (mc.dir > 7) mc.dir = 4;
+        
         mc.last_flip = !mc.last_flip;
+        
+        //send to combat system once actual rotation has occurred
+        MirrorRotateEvent mre = new MirrorRotateEvent(interacted_id, mc.last_flip);
+        mre.direction = mc.dir;
+        mre.index = mc.index;
+        mre.clicked = true;
+        observer.recieve(mre);
     }
 
 }
