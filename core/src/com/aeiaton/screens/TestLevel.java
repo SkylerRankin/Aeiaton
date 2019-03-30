@@ -80,7 +80,7 @@ public class TestLevel extends Level {
         player.addComponent(new DirectionalHitboxComponent(world, new Vector2(20,20), new Vector2(1228, 1669), 20));
         
         //.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 500, 0, "1:npc", true, false));
-        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false));
+        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
         guard.addComponent(new EnemyComponent(10, 10));

@@ -41,7 +41,7 @@ public class EnemySystem extends com.aeiaton.ecs.EntitySystem {
                     float enemyX = mc.body.getPosition().x;
                     float enemyY = mc.body.getPosition().y;
 
-                    System.out.println("Positions are: " + playerX + " " + playerY + " " + enemyX + " " + enemyY);
+                    //System.out.println("Positions are: " + playerX + " " + playerY + " " + enemyX + " " + enemyY);
 
                     if (playerY > enemyY) {
                         mc.body.applyLinearImpulse(new Vector2(0, mc.walk_force), mc.body.getWorldCenter(), true);
