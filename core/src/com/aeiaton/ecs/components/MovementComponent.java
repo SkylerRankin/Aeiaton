@@ -41,8 +41,8 @@ public class MovementComponent implements Component {
         shape.setAsBox(s.x / 2 / Aeiaton.PPM, s.y / 2 / Aeiaton.PPM);
         if (isBoundary) {
             fdef.filter.categoryBits = hitsDirectional ? Aeiaton.INTERACTABLE_BIT | Aeiaton.BOUNDARY_BIT : Aeiaton.BOUNDARY_BIT;
-            //fdef.filter.maskBits = (short)(hitsDirectional ? (Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT | Aeiaton.PLAYER_BIT) : (Aeiaton.BOUNDARY_BIT | Aeiaton.PLAYER_BIT));
-            fdef.filter.maskBits = Aeiaton.PLAYER_BIT;
+            fdef.filter.maskBits = (short)(hitsDirectional ? (Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT | Aeiaton.PLAYER_BIT) : (Aeiaton.BOUNDARY_BIT | Aeiaton.PLAYER_BIT));
+            //fdef.filter.maskBits = Aeiaton.PLAYER_BIT;
         } else {
             fdef.filter.categoryBits = Aeiaton.PLAYER_BIT;
             fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;

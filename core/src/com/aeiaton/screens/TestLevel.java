@@ -96,7 +96,6 @@ public class TestLevel extends Level {
         //door.addComponent(new RenderComponent(120, 165));
         //door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
         door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true, count++));
-        door.get(MovementComponent.class).update_category_bits(Aeiaton.INTERACTABLE_BIT);
         //door.addComponent(new DoorComponent());
         
         count++;
