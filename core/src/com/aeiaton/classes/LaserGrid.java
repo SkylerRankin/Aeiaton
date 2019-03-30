@@ -3,6 +3,7 @@ package com.aeiaton.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aeiaton.Aeiaton;
 import com.badlogic.gdx.math.Vector2;
 
 public class LaserGrid {
@@ -17,18 +18,14 @@ public class LaserGrid {
     private Vector2 source;
     private int source_direction;
     
-    private boolean animated = true;
+    private boolean animated = false;
     
     private List<Vector2> computed_path;
     
     public LaserGrid(Vector2[] p, int[] d, int e) {
         points = p;
         dir = d;
-        System.out.println("Starting position and direction"+points[0]+" "+dir[0]);
         grid = compute(points[0], dir[0]);
-        for (Vector2 v : grid) {
-            System.out.println(v);
-        }
         end = e;
     }
     
@@ -48,12 +45,15 @@ public class LaserGrid {
         
         if (grid == null) return null;
         
+        //offset to move the line to the center of a sprite
+        float offset = 10f / Aeiaton.PPM;
+        
         if (!animated) {
             List<List<Vector2>> lines = new ArrayList<>();
             for (int i = 0; i < grid.size()-1; ++i) {
                 List<Vector2> line = new ArrayList<>();
-                line.add(grid.get(i));
-                line.add(grid.get(i+1));
+                line.add(new Vector2(grid.get(i).x+offset, grid.get(i).y+offset));
+                line.add(new Vector2(grid.get(i+1).x+offset, grid.get(i+1).y+offset));
                 lines.add(line);
             }
             return lines;
@@ -82,13 +82,18 @@ public class LaserGrid {
             lines.add(line);
             if (remaining <= 0) break;
         }
-
+                
+        //adjust lines to go to center of sprite rather than bottom-left corner
+        for (List<Vector2> line : lines) {
+            line.set(0, new Vector2(line.get(0).x+offset, line.get(0).y+offset));
+            line.set(1, new Vector2(line.get(1).x+offset, line.get(1).y+offset)); 
+        }
+        
         return lines;
     }
     
-    
     public static int willCollide(Vector2 v1, int d) {
-        float e = 0.1f;
+        float e = 0.25f;
         Vector2 v;
         int p = -1;
         int distance = Integer.MAX_VALUE;
