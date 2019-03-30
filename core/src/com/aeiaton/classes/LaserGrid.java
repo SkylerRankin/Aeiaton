@@ -156,7 +156,7 @@ public class LaserGrid {
             
             // check if v is same point as end. If it is, send LaserActivatedEvent
             if (v.equals(end)) {
-                o.recieve (new LaserActivatedEvent(doorID));
+                o.recieve(new LaserActivatedEvent(doorID));
             }
             //direction is a corner: convert to up/down/right/left
             int[] c = Constants.comps(dir[i]);

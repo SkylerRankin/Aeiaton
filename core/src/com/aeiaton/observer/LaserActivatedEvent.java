@@ -12,7 +12,7 @@ public class LaserActivatedEvent extends Event {
     
     @Override
     public short getID() {
-        return EntitySystem.InteractableItemSystem;
+        return EntitySystem.DoorSystem;
     }
 
     @Override

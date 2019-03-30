@@ -10,6 +10,7 @@ import com.aeiaton.ecs.components.RenderComponent;
 import com.aeiaton.observer.ChangeLevelEvent;
 import com.aeiaton.observer.DoorOpenEvent;
 import com.aeiaton.observer.Event;
+import com.aeiaton.observer.LaserActivatedEvent;
 
 public class DoorSystem extends EntitySystem {
     
@@ -24,8 +25,7 @@ public class DoorSystem extends EntitySystem {
         switch (e.getName()) {
         case "LaserActivatedEvent":
             LaserActivatedEvent lae = (LaserActivatedEvent) e;
-            this.core.getEntity(lae.id).get(MovementComponent.class).update_mask_bits(Aeiaton.BOUNDARY_BIT);
-            System.out.println("DoorSystem: LaserActivatedEvent");
+            this.core.getEntity(lae.id).get(MovementComponent.class).update_category_bits(Aeiaton.INTERACTABLE_BIT);
             break;
         }
     }

@@ -96,6 +96,7 @@ public class TestLevel extends Level {
         //door.addComponent(new RenderComponent(120, 165));
         //door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
         door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true, count++));
+        door.get(MovementComponent.class).update_category_bits(Aeiaton.INTERACTABLE_BIT);
         //door.addComponent(new DoorComponent());
         
         count++;
@@ -106,7 +107,6 @@ public class TestLevel extends Level {
         
         Vector2[] positions = {new Vector2(1100, 2700), new Vector2(1200, 2700), new Vector2(1300, 2700), new Vector2(1100, 2600), new Vector2(1200, 2600), new Vector2(1300, 2600)};
         int[] directions = {Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT};
-        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0, door.id);
         for (int i = 0; i < mirrors.length; ++i) {
             RenderComponent mirror_rc = new RenderComponent(22,18);
             mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
@@ -127,6 +127,9 @@ public class TestLevel extends Level {
         core.addEntity(door);
         core.addEntity(ceiling_hack);
         for (Entity e : mirrors) core.addEntity(e);
+        
+        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0, door.id);
+
     }
     
     @Override

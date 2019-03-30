@@ -40,8 +40,9 @@ public class MovementComponent implements Component {
         body = world.createBody(bdef);
         shape.setAsBox(s.x / 2 / Aeiaton.PPM, s.y / 2 / Aeiaton.PPM);
         if (isBoundary) {
-            fdef.filter.categoryBits = hitsDirectional ? Aeiaton.BOUNDARY_BIT | Aeiaton.INTERACTABLE_BIT : Aeiaton.BOUNDARY_BIT;
-            fdef.filter.maskBits = (short)(hitsDirectional ? (Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT | Aeiaton.PLAYER_BIT) : (Aeiaton.BOUNDARY_BIT | Aeiaton.PLAYER_BIT));
+            fdef.filter.categoryBits = hitsDirectional ? Aeiaton.INTERACTABLE_BIT | Aeiaton.BOUNDARY_BIT : Aeiaton.BOUNDARY_BIT;
+            //fdef.filter.maskBits = (short)(hitsDirectional ? (Aeiaton.BOUNDARY_BIT | Aeiaton.DIRECTIONAL_HITBOX_BIT | Aeiaton.PLAYER_BIT) : (Aeiaton.BOUNDARY_BIT | Aeiaton.PLAYER_BIT));
+            fdef.filter.maskBits = Aeiaton.PLAYER_BIT;
         } else {
             fdef.filter.categoryBits = Aeiaton.PLAYER_BIT;
             fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;
@@ -73,6 +74,11 @@ public class MovementComponent implements Component {
     public Vector2 position = new Vector2();
     public Vector2 velocity = new Vector2();
     public Vector2 size = new Vector2();
-    public void update_mask_bits(short bits) { fdef.filter.maskBits = bits; } 
+    public void update_mask_bits(short bits) { fdef.filter.maskBits = bits; }
+    public void update_category_bits(short bits) {
+        body.destroyFixture(body.getFixtureList().get(0));
+        fdef.filter.categoryBits = bits;
+        body.createFixture(fdef);
+        }
     
 }

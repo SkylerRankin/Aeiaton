@@ -29,8 +29,8 @@ public class DirectionalHitboxComponent implements Component {
         bdef.position.set(p.x / Aeiaton.PPM, p.y / Aeiaton.PPM);
         body = world.createBody(bdef);
         shape.setAsBox(s.x / Aeiaton.PPM / 2, s.y / Aeiaton.PPM / 2);
-        //fdef.filter.categoryBits = Aeiaton.DIRECTIONAL_HITBOX_BIT;
-        //fdef.filter.maskBits = Aeiaton.INTERACTABLE_BIT;
+        fdef.filter.categoryBits = Aeiaton.DIRECTIONAL_HITBOX_BIT;
+        fdef.filter.maskBits = Aeiaton.BOUNDARY_BIT;
         fdef.shape = shape;
         body.setUserData(new String[] {"directional_hitbox", "directional_hitbox"});
         body.createFixture(fdef).setUserData(new String[] {"directional_hitbox", "directional_hitbox"});
