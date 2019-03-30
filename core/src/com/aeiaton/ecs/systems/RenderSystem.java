@@ -52,7 +52,7 @@ public class RenderSystem extends com.aeiaton.ecs.EntitySystem {
         partition();
         
         for (Entity e : below) {
-            if (e.hasComponent(MovementComponent.class)) {
+            if (e.hasComponent(MovementComponent.class) && e.hasComponent(RenderComponent.class)) {
                 MovementComponent mc = e.get(MovementComponent.class);
                 RenderComponent rc = e.get(RenderComponent.class);
                 batch.draw(rc.texture_region, mc.body.getPosition().x - (mc.size.x / 2), mc.body.getPosition().y - (mc.size.y / 2), rc.width, rc.height);

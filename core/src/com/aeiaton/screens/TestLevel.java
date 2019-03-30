@@ -66,7 +66,7 @@ public class TestLevel extends Level {
         core.addSystem(new UISystem(stage));
         core.addSystem(new DoorSystem());
         core.addSystem(new GameStateSystem(game));
-        core.addSystem(new EnemySystem(world, player));
+        //core.addSystem(new EnemySystem(world, player));
       
         int count = 0;
         core.addSystem(new CombatSystem());
@@ -87,7 +87,7 @@ public class TestLevel extends Level {
         guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
-        guard.addComponent(new EnemyComponent(10, 10));
+        guard.addComponent(new EnemyComponent(1, 10));
         /*
         computer1.addComponent(new MovementComponent(world, new Vector2(1042, 1692), new Vector2(22, 18), new Vector2(22, 18), 0, 0, "2:T0", true, true, count++));
         computer1.addComponent(new RenderComponent(22, 18));
@@ -97,10 +97,10 @@ public class TestLevel extends Level {
         computer2.addComponent(new RenderComponent(22, 18));
         computer2.addComponent(new InteractableComponent("computer", "computer_yellow"));
         */
-        door.addComponent(new RenderComponent(120, 165));
-        door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
+        //door.addComponent(new RenderComponent(120, 165));
+        //door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
         door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true, count++));
-        door.addComponent(new DoorComponent());
+        //door.addComponent(new DoorComponent());
         
         count++;
         RenderComponent ceiling_rc = new RenderComponent(120, 75);
@@ -110,7 +110,6 @@ public class TestLevel extends Level {
         
         Vector2[] positions = {new Vector2(1100, 2700), new Vector2(1200, 2700), new Vector2(1300, 2700), new Vector2(1100, 2600), new Vector2(1200, 2600), new Vector2(1300, 2600)};
         int[] directions = {Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT, Constants.BOTTOM_RIGHT};
-        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0);
         for (int i = 0; i < mirrors.length; ++i) {
             RenderComponent mirror_rc = new RenderComponent(22,18);
             mirror_rc.texture_region = new TextureRegion(new Texture(Gdx.files.internal("sprites//mirrorsprite.png")));
@@ -131,6 +130,9 @@ public class TestLevel extends Level {
         core.addEntity(door);
         core.addEntity(ceiling_hack);
         for (Entity e : mirrors) core.addEntity(e);
+        
+        ((CombatSystem) core.getSystem(CombatSystem.class)).setLaserGridPositions(positions, directions, 0, door.id);
+
     }
     
     @Override

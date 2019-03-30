@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aeiaton.Aeiaton;
+import com.aeiaton.observer.LaserActivatedEvent;
+import com.aeiaton.observer.Observer;
 import com.badlogic.gdx.math.Vector2;
 
 public class LaserGrid {
@@ -11,9 +13,10 @@ public class LaserGrid {
     private static Vector2[] points;
     private static List<Vector2> grid;
     private static int[] dir;
-    private int end;
+    private static Vector2 end;
     public float percent;
     private float total_length;
+    private static int doorID;
     
     private Vector2 source;
     private int source_direction;
@@ -21,12 +24,15 @@ public class LaserGrid {
     private boolean animated = false;
     
     private List<Vector2> computed_path;
+    private static Observer o;
     
-    public LaserGrid(Vector2[] p, int[] d, int e) {
+    public LaserGrid(Vector2[] p, int[] d, int e, Observer o, int door) {
         points = p;
         dir = d;
         grid = compute(points[0], dir[0]);
-        end = e;
+        end = points[e];
+        this.o = o;
+        doorID = door;
     }
     
     public int totalLength() {
@@ -147,6 +153,11 @@ public class LaserGrid {
         while (i != -1 && max > 0) {
             //get next point that is collided with
             v = points[i];
+            
+            // check if v is same point as end. If it is, send LaserActivatedEvent
+            if (v.equals(end)) {
+                o.recieve(new LaserActivatedEvent(doorID));
+            }
             //direction is a corner: convert to up/down/right/left
             int[] c = Constants.comps(dir[i]);
             if (Constants.hor(prev_d)) {
