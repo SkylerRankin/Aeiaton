@@ -23,13 +23,23 @@ public class MovementComponent implements Component {
     public FixtureDef fdef;
     public PolygonShape shape;
     
-    public MovementComponent(World world, Vector2 p, Vector2 v, Vector2 s, float w, float d, String data, boolean isBoundary, boolean hitsDirectional, Integer id) {
+    /**
+     * A component to house data related to the Box2D object for an entity.
+     * 
+     * @param world             A reference to the Box2D world to place the entity in
+     * @param p                 A Vector2 for the position of the entity
+     * @param v                 A float for the velocity to use when moving the entity
+     * @param s                 A Vector2 for the pixel size of the entity
+     * @param data              A string added to the Box2D body for collisions
+     * @param isBoundary        Set True if the entity should collide with boundaries
+     * @param hitsDirectional   Set True if the entity should collide with the player's front hit box
+     * @param id                The ECS ID of the entity
+     */
+    public MovementComponent(World world, Vector2 p, float v, Vector2 s, String data, boolean isBoundary, boolean hitsDirectional, Integer id) {
         position = p;
         velocity = v;
         size.x = s.x / Aeiaton.PPM;
         size.y = s.y / Aeiaton.PPM;
-        walk_force = w;
-        dash_force = d;
         
         bdef = new BodyDef();
         fdef = new FixtureDef();
@@ -69,10 +79,8 @@ public class MovementComponent implements Component {
         }
     }
     
-    public float dash_force;
-    public float walk_force;
     public Vector2 position = new Vector2();
-    public Vector2 velocity = new Vector2();
+    public float velocity = 0;
     public Vector2 size = new Vector2();
     public void update_mask_bits(short bits) { fdef.filter.maskBits = bits; }
     public void update_category_bits(short bits) {

@@ -36,19 +36,10 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
                 PlayerStateComponent psc = e.get(PlayerStateComponent.class);
                 PlayerInputComponent pic = e.get(PlayerInputComponent.class);
                 MovementComponent mc = e.get(MovementComponent.class);
-                if (psc.state.equals(PlayerStateComponent.PlayerState.Dash)) {
-                    mc.body.applyLinearImpulse(new Vector2(0, mc.dash_force), mc.body.getWorldCenter(), true);
-                    return;
-                }
-                if (pic.up) { mc.body.applyLinearImpulse(new Vector2(0, mc.walk_force), mc.body.getWorldCenter(), true); }
-                else if (pic.down) { mc.body.applyLinearImpulse(new Vector2(0, -mc.walk_force), mc.body.getWorldCenter(), true); }
-                else if (pic.left) { mc.body.applyLinearImpulse(new Vector2(-mc.walk_force, 0), mc.body.getWorldCenter(), true); }
-                else if (pic.right) { mc.body.applyLinearImpulse(new Vector2(mc.walk_force, 0), mc.body.getWorldCenter(), true); }
-                //if (pic.i) { mc.body.applyLinearImpulse(new Vector2(mc.dash_force, 0), mc.body.getWorldCenter(), true); }
-//                if (pic.up) { mc.body.setLinearVelocity(0, mc.velocity.y); }
-//                if (pic.down) { mc.body.setLinearVelocity(0, -mc.velocity.y); }
-//                if (pic.left) { mc.body.setLinearVelocity(-mc.velocity.x, 0); }
-//                if (pic.right) { mc.body.setLinearVelocity(mc.velocity.x, 0); }
+                if (pic.up) { mc.body.setLinearVelocity(0, mc.velocity); }
+                if (pic.down) { mc.body.setLinearVelocity(0, -mc.velocity); }
+                if (pic.left) { mc.body.setLinearVelocity(-mc.velocity, 0); }
+                if (pic.right) { mc.body.setLinearVelocity(mc.velocity, 0); }
             }
             
             if (e.hasComponent(DirectionalHitboxComponent.class)) {
