@@ -44,18 +44,18 @@ public class EnemySystem extends com.aeiaton.ecs.EntitySystem {
                     //System.out.println("Positions are: " + playerX + " " + playerY + " " + enemyX + " " + enemyY);
 
                     if (playerY > enemyY) {
-                        mc.body.applyLinearImpulse(new Vector2(0, mc.walk_force), mc.body.getWorldCenter(), true);
+                        mc.body.applyLinearImpulse(new Vector2(0, mc.velocity), mc.body.getWorldCenter(), true);
                     }
                     if (playerY < enemyY) {
-                        mc.body.applyLinearImpulse(new Vector2(0, -mc.walk_force), mc.body.getWorldCenter(), true);
+                        mc.body.applyLinearImpulse(new Vector2(0, -mc.velocity), mc.body.getWorldCenter(), true);
                     }
                     if (playerX < enemyX) {
-                        mc.body.applyLinearImpulse(new Vector2(-mc.walk_force, 0), mc.body.getWorldCenter(), true);
+                        mc.body.applyLinearImpulse(new Vector2(-mc.velocity, 0), mc.body.getWorldCenter(), true);
                     }
                     if (playerX > enemyX) {
                         //System.out.println("will move right");
                         //mc.body.applyLinearImpulse(new Vector2(-mc.walk_force, 0), mc.body.getWorldCenter(), true);
-                        mc.body.applyLinearImpulse(new Vector2(mc.walk_force, 0), mc.body.getWorldCenter(), true);
+                        mc.body.applyLinearImpulse(new Vector2(mc.velocity, 0), mc.body.getWorldCenter(), true);
                     }
                     return;
                 }

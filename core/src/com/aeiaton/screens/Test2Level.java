@@ -53,7 +53,7 @@ public class Test2Level extends Level {
         core.addSystem(new ParallaxSystem(player));
         
         player.addComponent(new PlayerInputComponent());
-        player.addComponent(new MovementComponent(world, new Vector2(417, 757), new Vector2(20, 20), new Vector2(10, 10), 10f, 500f, "0:player", false, false, 0));
+        player.addComponent(new MovementComponent(world, new Vector2(417, 757), 20, new Vector2(10, 10), "0:player", false, false, 0));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));
         player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_energy_blast"}, new int[] {1, 1, 1, 1, 12, 12, 12, 12, 12}, new boolean[] {false, false, true, false, false, false, true, false, false}, true));
         player.addComponent(new RenderComponent(15, 37));

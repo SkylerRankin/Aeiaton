@@ -72,7 +72,7 @@ public class TestLevel extends Level {
         core.addSystem(new CombatSystem());
       
         player.addComponent(new PlayerInputComponent());
-        player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
+        player.addComponent(new MovementComponent(world, new Vector2(1200, 2670), 2, new Vector2(10, 10), "0:player", false, false, count++));
         //player.addComponent(new AnimationComponent(.05f, 15, 37, new String[] {"robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "robot_walk_up", "robot_walk_down", "robot_walk_right", "robot_walk_right", "punch"}, new int[] {1, 1, 1, 1, 14, 12, 13, 13, 1}, new boolean[] {false, false, true, false, false, false, true, false, false}));
         player.addComponent(new AnimationComponent(.05f, 15, 37, 
                 new String[] {"robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_back_walk", "robot_front_walk", "robot_side_walk", "robot_side_walk", "robot_energy_blast", "robot_front_energy_shot", "robot_side_energy_shot", "robot_side_energy_shot"}, 
@@ -84,7 +84,7 @@ public class TestLevel extends Level {
         player.addComponent(new DirectionalHitboxComponent(world, new Vector2(20,20), new Vector2(1228, 1669), 20));
         
         //.addComponent(new MovementComponent(world, new Vector2(1300, 2680), new Vector2(10, 10), new Vector2(10, 10), 500, 0, "1:npc", true, false));
-        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), new Vector2(20, 20), new Vector2(10, 10), .7f, 20f, "0:player", false, false, count++));
+        guard.addComponent(new MovementComponent(world, new Vector2(1300, 2770), 1, new Vector2(10, 10), "0:player", false, false, count++));
         guard.addComponent(new AnimationComponent(.05f, 28, 40, new String[] {"purple_guard"}, new int[] {12}, new boolean[] {false}, true));
         guard.addComponent(new RenderComponent(28, 40));
         guard.addComponent(new EnemyComponent(1, 10));
@@ -99,7 +99,7 @@ public class TestLevel extends Level {
         */
         //door.addComponent(new RenderComponent(120, 165));
         //door.addComponent(new AnimationComponent(0.5f, 120, 165, new String[] {"door", "door", "door_empty"}, new int[] {1, 12, 1}, new boolean[] {false, false, false}, false));
-        door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), new Vector2(0, 0), new Vector2(120, 165), 0, 0, "2:door:Test2Level", true, true, count++));
+        door.addComponent(new MovementComponent(world, new Vector2(1155, 2730), 0, new Vector2(120, 165), "2:door:Test2Level", true, true, count++));
         //door.addComponent(new DoorComponent());
         
         count++;
@@ -119,7 +119,7 @@ public class TestLevel extends Level {
             mirrors[i].addComponent(new InteractableComponent(null, null));
             mirrors[i].addComponent(mirror_rc);
             mirrors[i].addComponent(new MovementComponent(world, positions[i],
-                                new Vector2(0,0), new Vector2(22, 18), 0, 0, "mirror", true, true, count++));
+                                0, new Vector2(22, 18), "mirror", true, true, count++));
         }
         
 
