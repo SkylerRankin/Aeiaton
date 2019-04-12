@@ -3,6 +3,8 @@ package com.aeiaton.ecs.systems;
 import com.aeiaton.ecs.Entity;
 import com.aeiaton.ecs.EntitySystem;
 import com.aeiaton.ecs.components.DirectionalHitboxComponent;
+import com.aeiaton.ecs.components.EnemyComponent;
+import com.aeiaton.ecs.components.EnemyComponent.EnemyState;
 import com.aeiaton.ecs.components.MovementComponent;
 import com.aeiaton.ecs.components.PlayerInputComponent;
 import com.aeiaton.ecs.components.PlayerStateComponent;
@@ -22,11 +24,6 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
     
     public MovementSystem(World world) {
         super(2, MovementComponent.class);
-    }
-    
-    @Override
-    public void addEntity(Entity e) {
-        super.addEntity(e);
     }
 
     @Override
@@ -55,6 +52,34 @@ public class MovementSystem extends com.aeiaton.ecs.EntitySystem {
                 Vector2 adj = new Vector2(pos.x + dhc.direction.x*dhc.offset, pos.y + dhc.direction.y*dhc.offset);
                 dhc.body.setTransform(adj, 0);
             }
+            
+            if (e.hasComponent(EnemyComponent.class)) {
+                MovementComponent mc = e.get(MovementComponent.class);
+                EnemyComponent ec = e.get(EnemyComponent.class);
+                switch (ec.state) {
+                case Random:
+                    Vector2 v = new Vector2();
+                    if (Math.random()>0.5) v.x = mc.velocity;
+                    else v.y = mc.velocity;
+                    if (Math.random()>0.5) v = v.scl(-1);
+                    mc.body.setLinearVelocity(v);
+                    break;
+                case Chase:
+                    if (ec.chase_id == -1 || ec.chase_body == null) break;
+                    //get difference between position and target's position. make magnitude 1, then scale by velocity
+                    Vector2 target = ec.chase_body.getPosition();
+                    Vector2 diff = target.sub(mc.body.getPosition());
+                    diff = diff.scl(1 / diff.len());
+                    diff = diff.scl(mc.velocity);
+                    mc.body.setLinearVelocity(diff);
+                    break;
+                case Idle:
+                    break;
+                default:
+                    break;
+                }
+            }
+            
         }
     }
 

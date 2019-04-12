@@ -1,21 +1,19 @@
 package com.aeiaton.ecs.components;
 
 import com.aeiaton.ecs.Component;
+import com.badlogic.gdx.physics.box2d.Body;
 
-public class EnemyComponent implements Component{
+public class EnemyComponent implements Component {
 
-    public int speed;
     public int damage;
-    public enum EnemyState {Idle, Searching, Chasing, Attacking};
-    public enum EnemyDirection {Up, Down, Left, Right}
+    public int chase_id = 0;
+    public Body chase_body = null;
+    public EnemyState state;
+    public enum EnemyState {Idle, Chase, Random};
 
-    public EnemyState state = EnemyState.Chasing;
-    public EnemyDirection direction = EnemyDirection.Up;
-
-
-    public EnemyComponent(int speed, int damage){
-        this.speed = speed;
+    public EnemyComponent(int damage, EnemyState state) {
         this.damage = damage;
+        this.state = state;
     }
 
 }
